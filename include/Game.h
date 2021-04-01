@@ -12,7 +12,7 @@
 
 class Game {
 private:
-    sf::Window* _mainWindow;
+    sf::RenderWindow* _mainWindow;
 
     void InitWindow();
     void Init();
