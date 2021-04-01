@@ -6,7 +6,7 @@
 #define SIBERIANGAMEJAM_CELL_H
 
 #include <vector>
-#include "include/Modificator.h"
+#include "Modificator.h"
 
 class Cell {
 public:
