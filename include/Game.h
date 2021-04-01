@@ -13,12 +13,13 @@
 class Game {
 private:
     sf::Window* _mainWindow;
+    sf::Clock dtClock;
 
     void InitWindow();
     void Init();
     void Render();
     void Update();
-
+    void UpdateSFMLEvents();
 public:
 
     Game();
