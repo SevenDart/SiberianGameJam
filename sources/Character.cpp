@@ -10,9 +10,6 @@ void Character::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 void Character::Update(float elapsedTime) {
     UpdateSprite(elapsedTime);
-    for (Modificator modificator : _modificators) {
-        modificator.getAction()(this);
-    }
 }
 
 void Character::UpdateSprite(float elapsedTime) {

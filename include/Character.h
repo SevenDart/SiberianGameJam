@@ -5,22 +5,25 @@
 #define SIBERIANGAMEJAM_CHARACTER_H
 
 #include "SFML/Graphics.hpp"
-#include "Modificator.h"
 #include "Animation.h"
 #include <vector>
 #include <map>
+#include <memory>
+
+class Modificator;
 
 class Character : public sf::Drawable, public sf::Transformable {
 public:
     enum class States{IDLE, WALK, HIT};
-    void Update(float elapsedTime);
+    virtual void Update(float elapsedTime);
 private:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
     void UpdateSprite(float elapsedTime);
-    std::vector <Modificator> _modificators;
+    std::vector <std::shared_ptr<Modificator>> _modificators;
     std::map <States, Animation> _animations;
     States _currentState;
     sf::Sprite _sprite;
+    int health;
 };
 
 
