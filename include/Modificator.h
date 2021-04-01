@@ -6,15 +6,17 @@
 
 #include "SFML/Graphics.hpp"
 #include "Character.h"
+#include <memory>
+#include <functional>
 
 class Modificator {
 private:
     std::function<void(std::shared_ptr<Character>)> action;
-    float _durability;
+    int _durability;
 public:
     const std::function<void(std::shared_ptr<Character>)> &getAction() const;
-    float getDurability() const;
-    Modificator(const std::function<void(std::shared_ptr<Character>)> &action, float durability);
+    int getDurability() const;
+    Modificator(const std::function<void(std::shared_ptr<Character>)> &action, int durability);
 };
 
 

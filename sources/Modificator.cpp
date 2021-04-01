@@ -4,14 +4,17 @@
 
 #include "../include/Modificator.h"
 
-const std::function<void(Character)> &Modificator::getAction() const {
-    return action;
-}
 
-float Modificator::getDurability() const {
+int Modificator::getDurability() const {
     return _durability;
 }
 
-Modificator::Modificator(const std::function<void(Character)> &action, float durability) : action(action),
-                                                                                           _durability(durability) {
+Modificator::Modificator(const std::function<void(std::shared_ptr<Character>)> &action, int durability) {
+    _durability = durability;
+    this->action = action;
 }
+
+const std::function<void(std::shared_ptr<Character>)> &Modificator::getAction() const {
+    return action;
+}
+
