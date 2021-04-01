@@ -18,7 +18,7 @@ private:
     void Init();
     void Render();
     void Update();
-
+    void UpdateSFMLEvents();
 public:
 
     Game();

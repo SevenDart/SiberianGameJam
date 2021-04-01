@@ -16,7 +16,15 @@ Game::Game() {
     Init();
 }
 
+void Game::Render() {
 
+}
+
+void Game::Update() {
+    UpdateSFMLEvents();
+    float elapsedTime = dtClock.restart().asSeconds();
+
+}
 
 void Game::Run() {
     while (_mainWindow->isOpen()) {
@@ -25,10 +33,11 @@ void Game::Run() {
     }
 }
 
-void Game::Render() {
-
+void Game::UpdateSFMLEvents() {
+    sf::Event event{};
+    while (_mainWindow->pollEvent(event)) {
+        if (event.type == sf::Event::Closed)
+            _mainWindow->close();
+    }
 }
 
-void Game::Update() {
-
-}
