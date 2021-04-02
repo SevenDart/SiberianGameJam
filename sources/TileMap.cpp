@@ -10,12 +10,15 @@ void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(m_vertices, states);
 }
 
-bool TileMap::load(const std::string &tileset, sf::Vector2u tileSize, const std::vector<std::vector<Cell>> &cells, unsigned int width,
-                   unsigned int heigth) {
+bool TileMap::load(const std::string &tileset, sf::Vector2u tileSize, const std::vector<std::vector<Cell>> &cells) {
     if (!m_tileset.loadFromFile(tileset))
         return false;
     m_vertices.setPrimitiveType(sf::Quads);
     std::vector<sf::Vertex> tmp(4);
+    unsigned int heigth = cells.size();
+    if (!heigth)
+        return false;
+    unsigned int width = cells[0].size();
     for (unsigned int i = 0; i < heigth; i++) {
         for (unsigned int j = 0; j < width; j++) {
             const Cell *cell = &cells[i][j];
