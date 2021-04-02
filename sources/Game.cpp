@@ -10,11 +10,25 @@ void Game::InitWindow() {
 
 void Game::Init() {
     InitWindow();
-    std::vector<Cell> cells(1);
-    cells[0].isReachable = false;
-    cells[0].tileNumbers.push_back(337);
-    cells[0].tileNumbers.push_back(32);
-    map.load("../resources/mainlevbuild.png", sf::Vector2u(32, 32), cells, 1, 1);
+    std::vector<Cell> cells;
+    cells.push_back(Cell(false, NULL, 1, 75));
+    for (int i = 0; i < 5; i++) {
+        cells.push_back(Cell(false, NULL, 1, 164));
+    }
+    cells.push_back(Cell(false, NULL, 1, 64));
+    for (int i = 0; i < 5; i++) {
+        cells.push_back(Cell(false, NULL, 1, 75));
+        for (int j = 0; j < 5; j++) {
+            cells.push_back(Cell(true, NULL, 1, 337));
+        }
+        cells.push_back(Cell(false, NULL, 1, 64));
+    }
+    cells.push_back(Cell(false, NULL, 1, 65));
+    for (int i = 0; i < 5; i++) {
+        cells.push_back(Cell(false, NULL, 1, 100));
+    }
+    cells.push_back(Cell(false, NULL, 1, 65));
+    map.load("../resources/mainlevbuild.png", sf::Vector2u(32, 32), cells, 7, 7);
 }
 
 Game::Game() {
