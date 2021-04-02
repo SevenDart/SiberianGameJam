@@ -16,26 +16,8 @@ void Game::InitWindow() {
 
 void Game::Init() {
     InitWindow();
-    CellMatrix cells(7);
-    cells[0].push_back(Cell(false, NULL, NULL, 1, 75));
-    for (int i = 0; i < 5; i++) {
-        cells[0].push_back(Cell(false, NULL, NULL, 1, 164));
-    }
-    cells[0].push_back(Cell(false, NULL, NULL, 1, 64));
-    for (int i = 0; i < 5; i++) {
-        cells[i + 1].push_back(Cell(false, NULL, NULL, 1, 75));
-        for (int j = 0; j < 5; j++) {
-            cells[i + 1].push_back(Cell(true, NULL, NULL, 1, 337));
-        }
-        cells[i + 1].push_back(Cell(false, NULL, NULL, 1, 64));
-    }
-    cells[6].push_back(Cell(false, NULL, NULL, 1, 65));
-    for (int i = 0; i < 5; i++) {
-        cells[6].push_back(Cell(false, NULL, NULL, 1, 100));
-    }
-    cells[6].push_back(Cell(false, NULL, NULL, 1, 65));
+    map.GenerateMap(10, 5);
     map.Load();
-    map.SetCells(cells);
     map.GenerateVertices();
 
     Level::currentLevel = &map;

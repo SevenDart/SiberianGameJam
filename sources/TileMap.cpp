@@ -34,7 +34,23 @@ void TileMap::SetCells(const CellMatrix &cells) {
 }
 
 void TileMap::GenerateMap(int width, int heigth, int difficulty) {
-
+    _cells.resize(heigth);
+    for (int i = 0; i < heigth; i++) _cells[i].resize(width);
+    for (int i = 0; i < width; i++) {
+        _cells[0][i] = Cell(false, NULL, NULL, 1, 164);
+        _cells[heigth - 1][i] = Cell(false, NULL, NULL, 1, 100);
+    }
+    for (int i = 0; i < heigth - 1; i++) {
+        _cells[i][0] = Cell(false, NULL, NULL, 1, 75);
+        _cells[i][width - 1] = Cell(false, NULL, NULL, 1, 64);
+    }
+    _cells[heigth - 1][0] = Cell(false, NULL, NULL, 1, 65);
+    _cells[heigth - 1][width -  1] = Cell(false, NULL, NULL, 1, 65);
+    for (int i = 1; i < heigth - 1; i++) {
+        for (int j = 1; j < width - 1; j++) {
+            _cells[i][j] = Cell(true, NULL, NULL, 1, 369);
+        }
+    }
 }
 
 void TileMap::GenerateVertices() {
