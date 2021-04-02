@@ -12,6 +12,10 @@
 class Player : public Character {
 private:
     sf::View _camera;
+public:
+    const sf::View &getCamera() const;
+
+private:
     ~Player() override;
     UserInterface* _ui;
 public:

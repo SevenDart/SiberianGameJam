@@ -4,6 +4,8 @@
 
 #include "../include/Game.h"
 #include <chrono>
+#include <memory>
+#include "../include/Weapon.h"
 
 void Game::InitWindow() {
     _mainWindow = new sf::RenderWindow(sf::VideoMode(800, 600), "Game");
@@ -30,15 +32,24 @@ void Game::Init() {
     }
     cells[6].push_back(Cell(false, NULL, NULL, 1, 65));
     map.load("../resources/mainlevbuild.png", sf::Vector2u(32, 32), cells);
+
+
+    auto weapon = new Weapon(Weapon::MainParameter::STRENGTH, 1, std::make_shared<Modificator>(nullptr, 1), 1);
+    player = new Player(1, 1, 1, std::shared_ptr<Weapon>(weapon));
 }
 
 Game::Game() {
+    currentGame = this;
     Init();
 }
 
 void Game::Render() {
     _mainWindow->clear();
+
     _mainWindow->draw(map);
+
+    _mainWindow->draw(*player);
+
     _mainWindow->display();
 }
 
@@ -68,5 +79,9 @@ bool Game::CheckChance(int chance) {
     std::default_random_engine generator(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()));
     std::uniform_int_distribution<int> distribution(1,100);
     return (distribution(generator) <= chance);
+}
+
+sf::RenderWindow *Game::getMainWindow() const {
+    return _mainWindow;
 }
 

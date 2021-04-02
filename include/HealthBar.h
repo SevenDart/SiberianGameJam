@@ -12,13 +12,14 @@ private:
     int _maxHP;
     int _currentHP;
 
-    sf::Vector2f _position = sf::Vector2f(50,50);
-    sf::Vector2f _outerSize = sf::Vector2f(100,100);
+    sf::Vector2f _position = sf::Vector2f(300,300);
+    sf::Vector2f _outerSize = sf::Vector2f(100,20);
     sf::Vector2f _innerSize = _outerSize;
 
     sf::RectangleShape _outerRectangle;
     sf::RectangleShape _innerRectangle;
 public:
+    void UpdatePosition(sf::Vector2f position);
     void setCurrentHp(int currentHp);
     void setMaxHp(int maxHp);
     HealthBar(int maxHp, int currentHp);

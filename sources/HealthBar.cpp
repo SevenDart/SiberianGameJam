@@ -4,6 +4,7 @@
 
 #include "../include/HealthBar.h"
 #include "SFML/Graphics.hpp"
+#include "../include/Game.h"
 
 HealthBar::HealthBar(int maxHp, int currentHp) : _maxHP(maxHp), _currentHP(currentHp) {
     _outerRectangle = sf::RectangleShape(_outerSize);
@@ -27,4 +28,8 @@ void HealthBar::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 void HealthBar::setMaxHp(int maxHp) {
     _maxHP = maxHp;
+}
+
+void HealthBar::UpdatePosition(sf::Vector2f position) {
+    _position = Game::currentGame->getMainWindow()->mapPixelToCoords(sf::Vector2i(position.x, position.y));
 }

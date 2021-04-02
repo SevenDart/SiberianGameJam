@@ -26,6 +26,10 @@ private:
     void Update();
     void UpdateSFMLEvents();
 public:
+    inline static Game* currentGame;
+
+    sf::RenderWindow *getMainWindow() const;
+
     Game();
     void Run();
     static bool CheckChance(int chance);

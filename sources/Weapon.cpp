@@ -24,8 +24,8 @@ int Weapon::CalculateDamage(int strength, int agility, int intelligence) {
     return result;
 }
 
-Weapon::Weapon(MainParameter mainParameter, int damage, const Modificator &attackModificator, int distance)
-        : _mainParameter(mainParameter), _damage(damage), _attackModificator(attackModificator), _distance(distance) {
+Weapon::Weapon(MainParameter mainParameter, int damage, std::shared_ptr<Modificator> attackModificator, int distance)
+        : _mainParameter(mainParameter), _damage(damage), _attackModificator(*attackModificator), _distance(distance) {
 
 }
 

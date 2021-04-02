@@ -12,7 +12,7 @@
 class Weapon {
 public:
     enum class MainParameter {STRENGTH, AGILITY, INTELLIGENCE};
-    Weapon(MainParameter mainParameter, int damage, const Modificator &attackModificator, int distance);
+    Weapon(MainParameter mainParameter, int damage, std::shared_ptr<Modificator> attackModificator, int distance);
     virtual int CalculateDamage(int strength, int agility, int intelligence);
     Modificator getAttackModificator() const;
 private:

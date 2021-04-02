@@ -11,14 +11,11 @@
 class UserInterface: public sf::Drawable, public sf::Transformable{
 public:
     UserInterface();
-
     HealthBar *getHealthBar() const;
-
 protected:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 private:
     HealthBar* _healthBar;
-
 };
 
 
