@@ -9,6 +9,8 @@
 
 class Enemy : public Character {
 public:
+    Enemy() : Character(0, 0, 0, std::shared_ptr<Weapon>(), sf::Vector2u()) {}
+
     void Step();
     enum class AIStates {WAIT, FOLLOW};
 private:

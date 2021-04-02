@@ -27,6 +27,9 @@ public:
     const CellMatrix &GetCells();
     void GenerateMap(int width, int heigth, int difficulty = 0);
     void GenerateVertices();
+
+
+    const sf::Vector2u TILE_SIZE = sf::Vector2u(32, 32);
 };
 
 #endif //SIBERIANGAMEJAM_TILEMAP_H

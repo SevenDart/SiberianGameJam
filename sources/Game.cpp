@@ -5,7 +5,10 @@
 #include "../include/Game.h"
 #include <chrono>
 #include <memory>
+#include <iostream>
 #include "../include/Weapon.h"
+#include "../include/Level.h"
+#include "../include/Entry.h"
 
 void Game::InitWindow() {
     _mainWindow = new sf::RenderWindow(sf::VideoMode(800, 600), "Game");
@@ -35,8 +38,15 @@ void Game::Init() {
     map.SetCells(cells);
     map.GenerateVertices();
 
-    auto weapon = new Weapon(Weapon::MainParameter::STRENGTH, 1, std::make_shared<Modificator>(nullptr, 1), 1);
-    player = new Player(1, 1, 1, std::shared_ptr<Weapon>(weapon));
+    Level::currentLevel = &map;
+
+    map.AddEntry(new Entry(sf::Vector2u(1, 1), nullptr));
+
+    auto weapon = new Weapon(Weapon::MainParameter::STRENGTH, 1,
+                             std::make_shared<Modificator>(nullptr, 1), 1);
+    player = new Player(1, 1, 1,
+                        std::shared_ptr<Weapon>(weapon), map.GetEntries()[0]->Position);
+
 }
 
 Game::Game() {
@@ -45,6 +55,8 @@ Game::Game() {
 }
 
 void Game::Render() {
+    _mainWindow->setView(player->getCamera());
+
     _mainWindow->clear();
 
     _mainWindow->draw(map);
@@ -62,7 +74,7 @@ void Game::Update() {
 
 void Game::Run() {
     while (_mainWindow->isOpen()) {
-        Update();
+        player->Input();
         Render();
     }
 }

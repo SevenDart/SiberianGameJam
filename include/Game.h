@@ -7,7 +7,7 @@
 #include "SFML/Graphics.hpp"
 #include "Player.h"
 #include <random>
-#include "TileMap.h"
+#include "Level.h"
 
 #ifndef SIBERIANGAMEJAM_GAME_H
 #define SIBERIANGAMEJAM_GAME_H
@@ -18,12 +18,11 @@ private:
     sf::RenderWindow* _mainWindow;
     sf::Clock dtClock;
     Player* player;
-    TileMap map;
+    Level map;
 
     void InitWindow();
     void Init();
     void Render();
-    void Update();
     void UpdateSFMLEvents();
 public:
     inline static Game* currentGame;
@@ -32,6 +31,7 @@ public:
 
     Game();
     void Run();
+    void Update();
     static bool CheckChance(int chance);
 };
 

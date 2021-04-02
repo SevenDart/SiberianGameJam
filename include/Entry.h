@@ -6,7 +6,7 @@
 #define SIBERIANGAMEJAM_ENTRY_H
 
 #include "Level.h"
-class Level;
+
 class Entry {
 public:
     sf::Vector2u Position;

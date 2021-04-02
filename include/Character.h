@@ -22,7 +22,7 @@ public:
     virtual void Attack(Character character);
     virtual void Move(sf::Vector2u newPosition);
     void GetModificator(Modificator modificator);
-    Character(int strength, int agility, int intelligence, std::shared_ptr<Weapon> weapon);
+    Character(int strength, int agility, int intelligence, std::shared_ptr<Weapon> weapon, sf::Vector2u startPosition);
     virtual ~Character();
 protected:
 
@@ -38,7 +38,7 @@ protected:
 
     std::shared_ptr<Weapon> _weapon;
 
-    sf::Vector2u _levelPosition;
+    sf::Vector2u _indexPosition;
 
     std::vector <std::shared_ptr<Modificator>> _modificators;
     std::map <States, Animation> _animations;

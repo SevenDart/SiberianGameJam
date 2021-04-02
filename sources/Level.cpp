@@ -3,6 +3,7 @@
 //
 
 #include "../include/Level.h"
+#include "../include/Entry.h"
 
 Level::Level() : TileMap() {
 }
@@ -47,5 +48,13 @@ std::vector<char> &Level::ToByteArray() {
 
 bool Level::GenerateEntries(int) {
     return false;
+}
+
+const std::vector<std::shared_ptr<Entry>> &Level::GetEntries() const {
+    return _entries;
+}
+
+void Level::AddEntry(Entry *entry) {
+    _entries.push_back(std::shared_ptr<Entry>(entry));
 }
 
