@@ -10,24 +10,24 @@ void Game::InitWindow() {
 
 void Game::Init() {
     InitWindow();
-    std::vector<Cell> cells;
-    cells.push_back(Cell(false, NULL, 1, 75));
+    std::vector<std::vector<Cell>> cells(7);
+    cells[0].push_back(Cell(false, NULL, NULL, 1, 75));
     for (int i = 0; i < 5; i++) {
-        cells.push_back(Cell(false, NULL, 1, 164));
+        cells[0].push_back(Cell(false, NULL, NULL, 1, 164));
     }
-    cells.push_back(Cell(false, NULL, 1, 64));
+    cells[0].push_back(Cell(false, NULL, NULL, 1, 64));
     for (int i = 0; i < 5; i++) {
-        cells.push_back(Cell(false, NULL, 1, 75));
+        cells[i + 1].push_back(Cell(false, NULL, NULL, 1, 75));
         for (int j = 0; j < 5; j++) {
-            cells.push_back(Cell(true, NULL, 1, 337));
+            cells[i + 1].push_back(Cell(true, NULL, NULL, 1, 337));
         }
-        cells.push_back(Cell(false, NULL, 1, 64));
+        cells[i + 1].push_back(Cell(false, NULL, NULL, 1, 64));
     }
-    cells.push_back(Cell(false, NULL, 1, 65));
+    cells[6].push_back(Cell(false, NULL, NULL, 1, 65));
     for (int i = 0; i < 5; i++) {
-        cells.push_back(Cell(false, NULL, 1, 100));
+        cells[6].push_back(Cell(false, NULL, NULL, 1, 100));
     }
-    cells.push_back(Cell(false, NULL, 1, 65));
+    cells[6].push_back(Cell(false, NULL, NULL, 1, 65));
     map.load("../resources/mainlevbuild.png", sf::Vector2u(32, 32), cells, 7, 7);
 }
 

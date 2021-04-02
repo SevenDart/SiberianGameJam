@@ -10,7 +10,7 @@ void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(m_vertices, states);
 }
 
-bool TileMap::load(const std::string &tileset, sf::Vector2u tileSize, const std::vector<Cell> &cells, unsigned int width,
+bool TileMap::load(const std::string &tileset, sf::Vector2u tileSize, const std::vector<std::vector<Cell>> &cells, unsigned int width,
                    unsigned int heigth) {
     if (!m_tileset.loadFromFile(tileset))
         return false;
@@ -18,7 +18,7 @@ bool TileMap::load(const std::string &tileset, sf::Vector2u tileSize, const std:
     std::vector<sf::Vertex> tmp(4);
     for (unsigned int i = 0; i < heigth; i++) {
         for (unsigned int j = 0; j < width; j++) {
-            const Cell *cell = &cells[i * width + j];
+            const Cell *cell = &cells[i][j];
             for (int tileNumber : cell->tileNumbers) {
                 m_vertices.resize(m_vertices.getVertexCount() + 4);
                 int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);
