@@ -41,8 +41,8 @@ Character::Character(int strength, int agility, int intelligence, std::shared_pt
     _strength(strength), _agility(agility),
     _intelligence(intelligence), _weapon(weapon), _indexPosition(startPosition)
     {
-        this->setPosition(startPosition.x * Level::currentLevel->TILE_SIZE.x,
-                          startPosition.y * Level::currentLevel->TILE_SIZE.y);
+        this->setPosition(startPosition.x * Level::currentLevel->TILE_SIZE.x + 4,
+                          startPosition.y * Level::currentLevel->TILE_SIZE.y - Level::currentLevel->TILE_SIZE.y / 2);
         _healthPoints = HEALTH_PER_POINT * strength;
         _currentState = States::IDLE;
         _gold = 0;
@@ -60,8 +60,8 @@ void Character::GetModificator(Modificator modificator) {
 
 void Character::Move(sf::Vector2u newPosition) {
     if (Level::currentLevel->GetCells()[newPosition.x][newPosition.y].isReachable) {
-        this->setPosition(Level::currentLevel->TILE_SIZE.x * newPosition.x,
-                          Level::currentLevel->TILE_SIZE.y * newPosition.y);
+        this->setPosition(Level::currentLevel->TILE_SIZE.x * newPosition.x + 4,
+                          Level::currentLevel->TILE_SIZE.y * newPosition.y - Level::currentLevel->TILE_SIZE.y / 2);
         _indexPosition = newPosition;
     }
 }
