@@ -6,11 +6,16 @@
 #define SIBERIANGAMEJAM_PLAYER_H
 
 #include "SFML/Graphics.hpp"
+#include "Character.h"
 
-class Player {
+class Player : public Character {
 private:
+    int _goldAmount;
+
     sf::View _camera;
+    ~Player() override;
 public:
+    void Update(float elapsedTime) override;
 };
 
 

@@ -16,14 +16,30 @@ class Character : public sf::Drawable, public sf::Transformable {
 public:
     enum class States{IDLE, WALK, HIT};
     virtual void Update(float elapsedTime);
+    virtual void GetDamage(int damage);
+
+    Character(int strength, int agility, int intelligence);
+
 private:
-    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-    void UpdateSprite(float elapsedTime);
+
+                        //Three main parameters for a character
+    int _strength;      //affects on health points
+    int _agility;       //affects on a chance to not have damage
+    int _intelligence;  //affects on a critical chance
+
+    const int HEALTH_PER_POINT = 13;
+
+    int _healthPoints;
+    int _gold;
+
     std::vector <std::shared_ptr<Modificator>> _modificators;
     std::map <States, Animation> _animations;
     States _currentState;
     sf::Sprite _sprite;
-    int health;
+
+    virtual ~Character();
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+    void UpdateSprite(float elapsedTime);
 };
 
 

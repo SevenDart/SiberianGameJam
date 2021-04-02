@@ -5,6 +5,7 @@
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
+#include <random>
 
 #ifndef SIBERIANGAMEJAM_GAME_H
 #define SIBERIANGAMEJAM_GAME_H
@@ -21,10 +22,9 @@ private:
     void Update();
     void UpdateSFMLEvents();
 public:
-
     Game();
     void Run();
-
+    static bool CheckChance(int chance);
 };
 
 
