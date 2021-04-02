@@ -11,8 +11,9 @@
 class Cell {
 public:
     bool isReachable;
-    Modificator modificator;
+    std::shared_ptr<Modificator> modificator;
     std::vector<int> tileNumbers;
+    Cell();
 };
 
 #endif //SIBERIANGAMEJAM_CELL_H

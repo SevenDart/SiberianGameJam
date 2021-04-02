@@ -10,6 +10,11 @@ void Game::InitWindow() {
 
 void Game::Init() {
     InitWindow();
+    std::vector<Cell> cells(1);
+    cells[0].isReachable = false;
+    cells[0].tileNumbers.push_back(337);
+    cells[0].tileNumbers.push_back(32);
+    map.load("../resources/mainlevbuild.png", sf::Vector2u(32, 32), cells, 1, 1);
 }
 
 Game::Game() {
@@ -17,12 +22,14 @@ Game::Game() {
 }
 
 void Game::Render() {
-
+    _mainWindow->clear();
+    _mainWindow->draw(map);
+    _mainWindow->display();
 }
 
 void Game::Update() {
     UpdateSFMLEvents();
-    float elapsedTime = dtClock.restart().asSeconds();
+//    float elapsedTime = dtClock.restart().asSeconds();
 
 }
 

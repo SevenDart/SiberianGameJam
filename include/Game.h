@@ -5,6 +5,7 @@
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
+#include "TileMap.h"
 
 #ifndef SIBERIANGAMEJAM_GAME_H
 #define SIBERIANGAMEJAM_GAME_H
@@ -13,6 +14,7 @@
 class Game {
 private:
     sf::RenderWindow* _mainWindow;
+    TileMap map;
 
     void InitWindow();
     void Init();
