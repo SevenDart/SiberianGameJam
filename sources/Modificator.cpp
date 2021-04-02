@@ -5,7 +5,7 @@
 #include "../include/Modificator.h"
 
 
-int Modificator::getDurability() const {
+int Modificator::DecDurability() const {
     return _durability;
 }
 

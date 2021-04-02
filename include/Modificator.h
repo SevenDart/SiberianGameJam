@@ -15,7 +15,7 @@ private:
     int _durability;
 public:
     const std::function<void(std::shared_ptr<Character>)> &getAction() const;
-    int getDurability() const;
+    int DecDurability() const;
     Modificator(const std::function<void(std::shared_ptr<Character>)> &action, int durability);
 };
 
