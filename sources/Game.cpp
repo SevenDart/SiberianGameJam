@@ -28,7 +28,7 @@ void Game::Init() {
         cells[6].push_back(Cell(false, NULL, NULL, 1, 100));
     }
     cells[6].push_back(Cell(false, NULL, NULL, 1, 65));
-    map.load("../resources/mainlevbuild.png", sf::Vector2u(32, 32), cells, 7, 7);
+    map.load("../resources/mainlevbuild.png", sf::Vector2u(32, 32), cells);
 }
 
 Game::Game() {
