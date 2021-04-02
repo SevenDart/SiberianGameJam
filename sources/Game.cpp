@@ -10,7 +10,7 @@ void Game::InitWindow() {
 
 void Game::Init() {
     InitWindow();
-    std::vector<std::vector<Cell>> cells(7);
+    CellMatrix cells(7);
     cells[0].push_back(Cell(false, NULL, NULL, 1, 75));
     for (int i = 0; i < 5; i++) {
         cells[0].push_back(Cell(false, NULL, NULL, 1, 164));
@@ -28,7 +28,9 @@ void Game::Init() {
         cells[6].push_back(Cell(false, NULL, NULL, 1, 100));
     }
     cells[6].push_back(Cell(false, NULL, NULL, 1, 65));
-    map.load("../resources/mainlevbuild.png", sf::Vector2u(32, 32), cells);
+    map.Load();
+    map.SetCells(cells);
+    map.GenerateVertices();
 }
 
 Game::Game() {
