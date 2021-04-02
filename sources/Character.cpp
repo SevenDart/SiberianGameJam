@@ -59,7 +59,7 @@ void Character::GetModificator(Modificator modificator) {
 }
 
 void Character::Move(sf::Vector2u newPosition) {
-    if (Level::currentLevel->GetCells()[newPosition.x][newPosition.y].isReachable) {
+    if (Level::currentLevel->GetCells()[newPosition.y][newPosition.x].isReachable) {
         this->setPosition(Level::currentLevel->TILE_SIZE.x * newPosition.x + 4,
                           Level::currentLevel->TILE_SIZE.y * newPosition.y - Level::currentLevel->TILE_SIZE.y / 2);
         _indexPosition = newPosition;
