@@ -39,6 +39,8 @@ Character::Character(int strength, int agility, int intelligence, std::shared_pt
                                                                                                     _intelligence(intelligence),
                                                                                                     _weapon(weapon) {
     _healthPoints = HEALTH_PER_POINT * strength;
+    _currentState = States::IDLE;
+    _gold = 0;
 }
 
 void Character::Attack(Character character) {
@@ -48,6 +50,10 @@ void Character::Attack(Character character) {
 
 void Character::GetModificator(Modificator modificator) {
     _modificators.push_back(std::shared_ptr<Modificator>(&modificator));
+}
+
+void Character::Move(sf::Vector2u newPosition) {
+
 }
 
 

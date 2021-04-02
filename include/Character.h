@@ -20,6 +20,7 @@ public:
     virtual void UpdateSprite(float elapsedTime);
     virtual void GetDamage(int damage);
     virtual void Attack(Character character);
+    virtual void Move(sf::Vector2u newPosition);
     void GetModificator(Modificator modificator);
     Character(int strength, int agility, int intelligence, std::shared_ptr<Weapon> weapon);
     virtual ~Character();
@@ -36,6 +37,8 @@ protected:
     int _gold;
 
     std::shared_ptr<Weapon> _weapon;
+
+    sf::Vector2u _levelPosition;
 
     std::vector <std::shared_ptr<Modificator>> _modificators;
     std::map <States, Animation> _animations;
