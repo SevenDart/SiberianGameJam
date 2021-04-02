@@ -5,6 +5,7 @@
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
+#include "Player.h"
 #include <random>
 
 #ifndef SIBERIANGAMEJAM_GAME_H
@@ -13,8 +14,9 @@
 
 class Game {
 private:
-    sf::Window* _mainWindow;
+    sf::RenderWindow* _mainWindow;
     sf::Clock dtClock;
+    Player* player;
 
     void InitWindow();
     void Init();

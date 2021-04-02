@@ -18,13 +18,12 @@ Game::Game() {
 }
 
 void Game::Render() {
-
 }
 
 void Game::Update() {
     UpdateSFMLEvents();
     float elapsedTime = dtClock.restart().asSeconds();
-
+    player->UpdateSprite(elapsedTime);
 }
 
 void Game::Run() {

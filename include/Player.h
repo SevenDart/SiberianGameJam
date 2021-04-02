@@ -10,12 +10,13 @@
 
 class Player : public Character {
 private:
-    int _goldAmount;
-
     sf::View _camera;
     ~Player() override;
 public:
-    void Update(float elapsedTime) override;
+    Player(int strength, int agility, int intelligence);
+    void UpdateSprite(float elapsedTime) override;
+    void Update() override;
+    void Input();
 };
 
 

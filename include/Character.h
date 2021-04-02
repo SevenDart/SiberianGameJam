@@ -15,12 +15,13 @@ class Modificator;
 class Character : public sf::Drawable, public sf::Transformable {
 public:
     enum class States{IDLE, WALK, HIT};
-    virtual void Update(float elapsedTime);
+    virtual void Update();
+    virtual void UpdateSprite(float elapsedTime);
     virtual void GetDamage(int damage);
 
     Character(int strength, int agility, int intelligence);
-
-private:
+    virtual ~Character();
+protected:
 
                         //Three main parameters for a character
     int _strength;      //affects on health points
@@ -36,10 +37,7 @@ private:
     std::map <States, Animation> _animations;
     States _currentState;
     sf::Sprite _sprite;
-
-    virtual ~Character();
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
-    void UpdateSprite(float elapsedTime);
 };
 
 
