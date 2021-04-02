@@ -5,8 +5,8 @@
 #include "../include/Modificator.h"
 
 
-int Modificator::DecDurability() const {
-    return _durability;
+int Modificator::DecDurability() {
+    return --_durability;
 }
 
 Modificator::Modificator(const std::function<void(std::shared_ptr<Character>)> &action, int durability) {

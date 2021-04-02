@@ -13,7 +13,7 @@ private:
     sf::View _camera;
     ~Player() override;
 public:
-    Player(int strength, int agility, int intelligence);
+    Player(int strength, int agility, int intelligence, std::shared_ptr<Weapon> weapon);
     void UpdateSprite(float elapsedTime) override;
     void Update() override;
     void Input();

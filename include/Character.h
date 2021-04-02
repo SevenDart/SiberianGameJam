@@ -11,6 +11,7 @@
 #include <memory>
 
 class Modificator;
+class Weapon;
 
 class Character : public sf::Drawable, public sf::Transformable {
 public:
@@ -18,8 +19,9 @@ public:
     virtual void Update();
     virtual void UpdateSprite(float elapsedTime);
     virtual void GetDamage(int damage);
-
-    Character(int strength, int agility, int intelligence);
+    virtual void Attack(Character character);
+    void GetModificator(Modificator modificator);
+    Character(int strength, int agility, int intelligence, std::shared_ptr<Weapon> weapon);
     virtual ~Character();
 protected:
 
@@ -32,6 +34,8 @@ protected:
 
     int _healthPoints;
     int _gold;
+
+    std::shared_ptr<Weapon> _weapon;
 
     std::vector <std::shared_ptr<Modificator>> _modificators;
     std::map <States, Animation> _animations;

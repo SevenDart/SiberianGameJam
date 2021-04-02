@@ -27,6 +27,7 @@ void Player::Input() {
     }
 }
 
-Player::Player(int strength, int agility, int intelligence) : Character(strength, agility, intelligence) {
+Player::Player(int strength, int agility, int intelligence, std::shared_ptr<Weapon> weapon) : Character(strength, agility, intelligence,
+                                                                        weapon) {
 
 }
