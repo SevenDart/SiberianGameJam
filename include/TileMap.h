@@ -8,15 +8,25 @@
 #include <SFML/Graphics.hpp>
 #include "Cell.h"
 
+typedef std::vector<std::vector<Cell>> CellMatrix;
+
 class TileMap : public sf::Drawable, public sf::Transformable {
-private:
+protected:
+    CellMatrix _cells;
     sf::VertexArray m_vertices;
     sf::Texture m_tileset;
+    sf::Vector2u _tileSize;
+private:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 public:
-    bool load(const std::string& tileset, sf::Vector2u tileSize, const std::vector<std::vector<Cell>> &cells);
+    TileMap();
+    TileMap(int width, int heigth, int difficulty = 0);
+    TileMap(const CellMatrix &cells);
+    bool Load();
+    void SetCells(const CellMatrix &cells);
+    const CellMatrix &GetCells();
+    void GenerateMap(int width, int heigth, int difficulty = 0);
+    void GenerateVertices();
 };
-
-
 
 #endif //SIBERIANGAMEJAM_TILEMAP_H

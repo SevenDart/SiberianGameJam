@@ -12,10 +12,6 @@
 class Player : public Character {
 private:
     sf::View _camera;
-public:
-    const sf::View &getCamera() const;
-
-private:
     ~Player() override;
     UserInterface* _ui;
 public:
@@ -24,7 +20,7 @@ public:
     void Update() override;
     void Input();
     virtual void GetDamage(int damage) override;
-
+    const sf::View &getCamera() const;
 protected:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };
