@@ -9,3 +9,8 @@ void Enemy::Step() {
 
     }
 }
+
+Enemy::Enemy(int strength, int agility, int intelligence, std::shared_ptr<Weapon> weapon, sf::Vector2u startPosition)
+        : Character(strength, agility, intelligence, weapon, startPosition) {
+
+}
