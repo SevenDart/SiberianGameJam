@@ -22,7 +22,7 @@ public:
     virtual void UpdateSprite(float elapsedTime);
 
     virtual void GetDamage(int damage);
-    virtual void Attack(Character character);
+    virtual void Attack(Character *character);
     virtual void Move(sf::Vector2u newPosition);
 
     void GetModificator(Modificator modificator);
@@ -49,7 +49,12 @@ protected:
 
     std::vector <std::shared_ptr<Modificator>> _modificators;
     std::map <States, Animation> _animations;
+
+
+    void SetCurrentState(States newState);
     States _currentState;
+
+
     sf::Sprite _sprite;
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 };

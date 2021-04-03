@@ -24,12 +24,13 @@ void Character::Update() {
 
 void Character::UpdateSprite(float elapsedTime) {
     _sprite.setTexture(_animations[_currentState].nextFrame(elapsedTime));
+    if (_animations[_currentState].isFinished && _currentState == States::HIT) _currentState = States::IDLE;
     _sprite.setPosition(this->getPosition());
 }
 
 
 void Character::GetDamage(int damage) {
-    _currentState = States::HIT;
+    SetCurrentState(States::HIT);
     if (Game::CheckChance(_agility))
         return;
     _healthPoints -= damage;
@@ -43,14 +44,14 @@ Character::Character(int strength, int agility, int intelligence, std::shared_pt
     _intelligence(intelligence), _weapon(std::move(weapon)), _indexPosition(startPosition)
     {
         _healthPoints = HEALTH_PER_POINT * strength;
-        _currentState = States::IDLE;
+        SetCurrentState(States::IDLE);
         _gold = 0;
 }
 
-void Character::Attack(Character character) {
-    character.GetDamage(_weapon->CalculateDamage(_strength, _agility, _intelligence));
+void Character::Attack(Character* character) {
+    character->GetDamage(_weapon->CalculateDamage(_strength, _agility, _intelligence));
     if (_weapon->getAttackModificator().getAction() != nullptr)
-        character.GetModificator(_weapon->getAttackModificator());
+        character->GetModificator(_weapon->getAttackModificator());
 }
 
 void Character::GetModificator(Modificator modificator) {
@@ -59,6 +60,7 @@ void Character::GetModificator(Modificator modificator) {
 
 void Character::Move(sf::Vector2u newPosition) {
     CellMatrix map = Level::currentLevel->GetCells();
+    if (newPosition == _indexPosition) return;
     if (map[newPosition.y][newPosition.x].isReachable && map[newPosition.y][newPosition.x].character == nullptr) {
         Level::currentLevel->GetCells()[newPosition.y][newPosition.x].character =
                 std::move(Level::currentLevel->GetCells()[_indexPosition.y][_indexPosition.x].character);
@@ -70,6 +72,11 @@ void Character::Move(sf::Vector2u newPosition) {
 
 const sf::Vector2u &Character::GetIndexPosition() const {
     return _indexPosition;
+}
+
+void Character::SetCurrentState(Character::States newState) {
+    if (newState != _currentState) _animations[newState].reset();
+    _currentState = newState;
 }
 
 

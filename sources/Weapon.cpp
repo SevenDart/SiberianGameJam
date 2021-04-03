@@ -33,3 +33,7 @@ Modificator Weapon::getAttackModificator() const {
     return _attackModificator;
 }
 
+int Weapon::GetDistance() const {
+    return _distance;
+}
+

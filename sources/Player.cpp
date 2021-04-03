@@ -57,6 +57,7 @@ Player::Player(int strength, int agility, int intelligence, std::shared_ptr<Weap
     _ui->getHealthBar()->setCurrentHp(this->_healthPoints);
 
     _animations[States::IDLE].load("../resources/dude/anim_idle_", 4);
+    _animations[States::HIT].load("../resources/dude/anim_hit_", 1);
 
     name = "Player";
 

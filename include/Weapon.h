@@ -15,6 +15,9 @@ public:
     Weapon(MainParameter mainParameter, int damage, std::shared_ptr<Modificator> attackModificator, int distance);
     virtual int CalculateDamage(int strength, int agility, int intelligence);
     Modificator getAttackModificator() const;
+
+    int GetDistance() const;
+
 private:
     MainParameter _mainParameter;
     int _damage;

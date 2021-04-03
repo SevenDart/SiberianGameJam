@@ -4,6 +4,7 @@
 
 #include "../include/Enemy.h"
 #include "../include/Game.h"
+#include "../include/Weapon.h"
 #include <cmath>
 #include <queue>
 
@@ -24,8 +25,13 @@ Enemy::Enemy(int strength, int agility, int intelligence, std::shared_ptr<Weapon
 
 
 void Enemy::Follow() {
-    sf::Vector2u step = FindPath();
-    Move(_indexPosition - step);
+    if (CountDistance() <= _weapon->GetDistance()) {
+        Attack(Game::currentGame->GetPlayer());
+    }
+    else {
+        sf::Vector2u step = FindPath();
+        Move(_indexPosition - step);
+    }
 }
 
 int Enemy::CountDistance() {
