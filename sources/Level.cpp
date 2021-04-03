@@ -6,6 +6,7 @@
 
 #include <memory>
 #include <queue>
+#include <climits>
 #include "../include/Entry.h"
 
 Level::Level() : TileMap() {
@@ -54,7 +55,7 @@ bool Level::GenerateTraps(int width, int heigth, int traps) {
                 int failnum = 0;
                 int threshold = 100;
                 while (failnum < threshold) {
-                    bool fail = false;
+                    bool fail;
                     int x = rand() % (width - 2) + 1;
                     int y = rand() % (heigth - 3) + 2;
                     _cells[y][x].isTrap = true;
@@ -63,15 +64,15 @@ bool Level::GenerateTraps(int width, int heigth, int traps) {
                         failnum++;
                         _cells[y][x].isTrap = false;
                     } else {
-                        // TODO: ADD KILL MODIFICATOR
                         _cells[y][x].tileNumbers.push_back(836);
-//                        _cells[y][x].modificator = Modificator()
+                        _cells[y][x].modificator = std::make_shared<Modificator>(Modificator([](std::shared_ptr<Character> character) { character->GetDamage(INT_MAX); }, 1));
                         break;
                     }
                 }
                 break;
             }
             case 1: {
+
                 break;
             }
         }
