@@ -87,4 +87,9 @@ void Player::Move(sf::Vector2u newPosition) {
 }
 
 void Player::Update() {
+    Character::Update();
+}
+
+void Player::Death() {
+
 }
