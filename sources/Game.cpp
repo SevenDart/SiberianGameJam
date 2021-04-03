@@ -43,7 +43,7 @@ void Game::Render() {
 
     _mainWindow->draw(map);
 
-    for (auto character : Level::currentLevel->GetCharacters()) {
+    for (auto &character : Level::currentLevel->GetCharacters()) {
         _mainWindow->draw(*character);
     }
 
@@ -54,7 +54,7 @@ void Game::Update() {
     UpdateSFMLEvents();
     float elapsedTime = dtClock.restart().asSeconds();
 
-    for (auto character: Level::currentLevel->GetCharacters())
+    for (auto &character: Level::currentLevel->GetCharacters())
         character->UpdateSprite(elapsedTime);
 }
 
@@ -91,8 +91,8 @@ Player *Game::GetPlayer() const {
 
 void Game::UpdateCharacters() {
     auto characters = Level::currentLevel->GetCharacters();
-    for (auto character: characters) {
-        character->Update();
+    for (auto &character: characters) {
+        if (character->name != "Player") character->Update();
     }
 }
 

@@ -257,7 +257,7 @@ bool Level::IsReachable(int x1, int y1, int x2, int y2) {
     return false;
 }
 
-const std::vector<std::shared_ptr<Character>> &Level::GetCharacters() {
+std::vector<std::shared_ptr<Character>> &Level::GetCharacters() {
     return _characters;
 }
 

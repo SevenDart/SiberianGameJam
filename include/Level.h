@@ -51,7 +51,7 @@ public:
 
     const std::vector<std::shared_ptr<Entry>> &GetEntries() const;
 
-    const std::vector<std::shared_ptr<Character>> &GetCharacters();
+    std::vector<std::shared_ptr<Character>> &GetCharacters();
 
     void AddEntry(Entry *entry);
     void AddCharacter(Character* character);

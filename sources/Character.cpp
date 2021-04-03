@@ -7,6 +7,7 @@
 #include "../include/Weapon.h"
 #include <cmath>
 #include <iostream>
+#include <utility>
 
 void Character::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(_sprite, states);
@@ -39,7 +40,7 @@ void Character::GetDamage(int damage) {
 Character::Character(int strength, int agility, int intelligence, std::shared_ptr<Weapon> weapon,
                      sf::Vector2u startPosition) :
     _strength(strength), _agility(agility),
-    _intelligence(intelligence), _weapon(weapon), _indexPosition(startPosition)
+    _intelligence(intelligence), _weapon(std::move(weapon)), _indexPosition(startPosition)
     {
         _healthPoints = HEALTH_PER_POINT * strength;
         _currentState = States::IDLE;
@@ -59,8 +60,8 @@ void Character::GetModificator(Modificator modificator) {
 void Character::Move(sf::Vector2u newPosition) {
     CellMatrix map = Level::currentLevel->GetCells();
     if (map[newPosition.y][newPosition.x].isReachable && map[newPosition.y][newPosition.x].character == nullptr) {
-        Level::currentLevel->GetCells()[newPosition.y][newPosition.x].character = std::shared_ptr<Character>(this);
-        Level::currentLevel->GetCells()[_indexPosition.y][_indexPosition.x].character = nullptr;
+        Level::currentLevel->GetCells()[newPosition.y][newPosition.x].character =
+                std::move(Level::currentLevel->GetCells()[_indexPosition.y][_indexPosition.x].character);
         this->setPosition(Level::currentLevel->TILE_SIZE.x * newPosition.x + 4,
                           Level::currentLevel->TILE_SIZE.y * newPosition.y - Level::currentLevel->TILE_SIZE.y / 2);
         _indexPosition = newPosition;
