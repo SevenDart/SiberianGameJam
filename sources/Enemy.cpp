@@ -47,60 +47,60 @@ sf::Vector2u Enemy::FindPath() {
 
     std::queue<sf::Vector2u> coords;
     coords.push(_indexPosition);
-    pathMap[_indexPosition.x][_indexPosition.y] = -2;
+    pathMap[_indexPosition.y][_indexPosition.x] = -2;
     int step = 1;
     while (!coords.empty()) {
         int length = coords.size();
         for (int i = 0; i < length; i++) {
             sf::Vector2u currentPosition = coords.front();
-            if (pathMap[currentPosition.x + 1][currentPosition.y] == 0) {
-                pathMap[currentPosition.x + 1][currentPosition.y] = step;
-                coords.push(currentPosition + sf::Vector2u(1, 0));
+            if (pathMap[currentPosition.y + 1][currentPosition.x] == 0) {
+                pathMap[currentPosition.y + 1][currentPosition.x] = step;
+                coords.push(currentPosition + sf::Vector2u(0, 1));
             }
-            if (pathMap[currentPosition.x - 1][currentPosition.y] == 0) {
-                pathMap[currentPosition.x - 1][currentPosition.y] = step;
-                coords.push(currentPosition + sf::Vector2u(-1, 0));
-            }
-            if (pathMap[currentPosition.x][currentPosition.y - 1] == 0) {
-                pathMap[currentPosition.x][currentPosition.y - 1] = step;
+            if (pathMap[currentPosition.y - 1][currentPosition.x] == 0) {
+                pathMap[currentPosition.y - 1][currentPosition.x] = step;
                 coords.push(currentPosition + sf::Vector2u(0, -1));
             }
-            if (pathMap[currentPosition.x][currentPosition.y + 1] == 0) {
-                pathMap[currentPosition.x][currentPosition.y + 1] = step;
-                coords.push(currentPosition + sf::Vector2u(0, 1));
+            if (pathMap[currentPosition.y][currentPosition.x - 1] == 0) {
+                pathMap[currentPosition.y][currentPosition.x - 1] = step;
+                coords.push(currentPosition + sf::Vector2u(-1, 0));
+            }
+            if (pathMap[currentPosition.y][currentPosition.x + 1] == 0) {
+                pathMap[currentPosition.y][currentPosition.x + 1] = step;
+                coords.push(currentPosition + sf::Vector2u(1, 0));
             }
             coords.pop();
         }
-        if (pathMap[playerPosition.x][playerPosition.y] != 0)
+        if (pathMap[playerPosition.y][playerPosition.x] != 0)
             break;
         step++;
     }
 
-    if (pathMap[playerPosition.x][playerPosition.y] == 0) {
+    if (pathMap[playerPosition.y][playerPosition.x] == 0) {
         _aiState = AIStates::WAIT;
         return sf::Vector2u(0,0);
     }
 
-    pathMap[_indexPosition.x][_indexPosition.y] = 0;
+    pathMap[_indexPosition.y][_indexPosition.x] = 0;
 
     sf::Vector2u lastPosition;
     sf::Vector2u currentPosition(playerPosition);
     while (currentPosition != _indexPosition) {
-        if (pathMap[currentPosition.x][currentPosition.y] - pathMap[currentPosition.x + 1][currentPosition.y] == 1) {
-            lastPosition = currentPosition;
-            currentPosition.x += 1;
-        }
-        if (pathMap[currentPosition.x][currentPosition.y] - pathMap[currentPosition.x - 1][currentPosition.y] == 1) {
-            lastPosition = currentPosition;
-            currentPosition.x -= 1;
-        }
-        if (pathMap[currentPosition.x][currentPosition.y] - pathMap[currentPosition.x][currentPosition.y + 1] == 1) {
+        if (pathMap[currentPosition.y][currentPosition.x] - pathMap[currentPosition.y + 1][currentPosition.x] == 1) {
             lastPosition = currentPosition;
             currentPosition.y += 1;
         }
-        if (pathMap[currentPosition.x][currentPosition.y] - pathMap[currentPosition.x + 1][currentPosition.y - 1] == 1) {
+        if (pathMap[currentPosition.y][currentPosition.x] - pathMap[currentPosition.y - 1][currentPosition.x] == 1) {
             lastPosition = currentPosition;
             currentPosition.y -= 1;
+        }
+        if (pathMap[currentPosition.y][currentPosition.x] - pathMap[currentPosition.y][currentPosition.x + 1] == 1) {
+            lastPosition = currentPosition;
+            currentPosition.x += 1;
+        }
+        if (pathMap[currentPosition.y][currentPosition.x] - pathMap[currentPosition.y][currentPosition.x - 1] == 1) {
+            lastPosition = currentPosition;
+            currentPosition.x -= 1;
         }
     }
 
