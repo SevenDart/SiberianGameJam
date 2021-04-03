@@ -3,6 +3,8 @@
 //
 
 #include "../include/Level.h"
+
+#include <memory>
 #include "../include/Entry.h"
 
 Level::Level() : TileMap() {
@@ -34,12 +36,12 @@ bool Level::GenerateLevel(int width, int heigth, Level::LevelType type, int trap
     return true;
 }
 
-bool Level::GenerateEnemies(int enemies) {
+bool Level::GenerateEnemies(int width, int heigth, int enemies) {
     // TODO: Generate Enemies;
     return false;
 }
 
-bool Level::GenerateTraps(int traps) {
+bool Level::GenerateTraps(int width, int heigth, int traps) {
     // TODO: Generate Traps or not to generate)))
     return false;
 }
@@ -75,15 +77,20 @@ bool Level::GenerateEntries(int width, int heigth, int entries) {
             failnum += fail;
         }
     }
-    for (int i = 0; i < (int) entry.size(); i++) {
-        if (entry[i] / (width - 4)) {
-            AddElement(entry[i] % (width - 4) + 2, heigth - 1, BottomDoor);
+    for (int now : entry) {
+        int x = now % (width - 4) + 2;
+        if (now / (width - 4)) {
+            _entries.push_back(std::make_shared<Entry>(sf::Vector2u(x, heigth - 1), nullptr));
+            AddElement(x, heigth - 1, BottomDoor);
+            _cells[heigth - 1][x].isReachable = true;
         } else {
             if (Random(2, 0, 1, 1, 1)) {
-                AddElement(entry[i] % (width - 4) + 2, 1, TopRoundDoor);
+                AddElement(x, 1, TopRoundDoor);
             } else {
-                AddElement(entry[i] % (width - 4) + 2, 1, TopSquareDoor);
+                AddElement(x, 1, TopSquareDoor);
             }
+            _cells[1][x].isReachable = true;
+            _entries.push_back(std::make_shared<Entry>(sf::Vector2u(x, 1), nullptr));
         }
     }
     return false;
@@ -97,7 +104,7 @@ void Level::AddEntry(Entry *entry) {
     _entries.push_back(std::shared_ptr<Entry>(entry));
 }
 
-bool Level::GenerateMap(int width, int heigth, int difficulty) {
+bool Level::GenerateMap(int width, int heigth) {
     // Resize cells
     _cells.resize(heigth);
     for (int i = 0; i < heigth; i++) _cells[i].resize(width);
@@ -169,7 +176,7 @@ bool Level::GenerateMap(int width, int heigth, int difficulty) {
     }
 }
 
-void Level::GenerateCellTypeGrid(int width, int heigth) {
+void Level::GenerateCellTypeGrid(int width, int heigth, int difficulty) {
     // Resize grid
     _CellTypeGrid.resize(heigth);
     for (int i = 0; i < heigth; i++) {

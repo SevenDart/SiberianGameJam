@@ -14,7 +14,7 @@ void Game::InitWindow() {
 
 void Game::Init() {
     InitWindow();
-    map.GenerateLevel(15, 15);
+    map.GenerateLevel(9, 9);
     map.Load();
     map.GenerateVertices();
 

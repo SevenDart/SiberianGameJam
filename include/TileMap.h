@@ -33,12 +33,12 @@ private:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 public:
     TileMap();
-    TileMap(int width, int heigth, int difficulty = 0);
+    TileMap(int width, int heigth);
     TileMap(const CellMatrix &cells);
     bool Load();
     void SetCells(const CellMatrix &cells);
     const CellMatrix &GetCells();
-    virtual bool GenerateMap(int width, int heigth, int difficulty = 0);
+    virtual bool GenerateMap(int width, int heigth);
     void GenerateVertices();
 
     const sf::Vector2u TILE_SIZE = sf::Vector2u(32, 32);

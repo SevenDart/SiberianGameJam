@@ -16,9 +16,9 @@ TileMap::TileMap() {
     m_vertices.setPrimitiveType(sf::Quads);
 }
 
-TileMap::TileMap(int width, int heigth, int difficulty) {
+TileMap::TileMap(int width, int heigth) {
     Load();
-    GenerateMap(width, heigth, difficulty);
+    GenerateMap(width, heigth);
 }
 
 bool TileMap::Load() {
@@ -35,7 +35,7 @@ void TileMap::SetCells(const CellMatrix &cells) {
     _cells = CellMatrix(cells);
 }
 
-bool TileMap::GenerateMap(int width, int heigth, int difficulty) {
+bool TileMap::GenerateMap(int width, int heigth) {
     _cells.resize(heigth);
     for (int i = 0; i < heigth; i++) _cells[i].resize(width);
     for (int i = 0; i < width; i++) {

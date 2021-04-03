@@ -15,16 +15,13 @@ class Level : public TileMap {
 private:
     enum class CellType {
         FLOOR,
-        WALL,
-        ENEMY,
-        TRAP,
-        ENTRY
+        WALL
     };
     std::vector<std::vector<CellType>> _CellTypeGrid;
-    void GenerateCellTypeGrid(int width, int heigth);
-    bool GenerateMap(int width, int heigth, int difficulty = 0) override;
-    bool GenerateEnemies(int enemies);
-    bool GenerateTraps(int traps);
+    void GenerateCellTypeGrid(int width, int heigth, int difficulty = 0);
+    bool GenerateMap(int width, int heigth) override;
+    bool GenerateEnemies(int width, int heigth, int enemies);
+    bool GenerateTraps(int width, int heigth, int traps);
     bool GenerateEntries(int width, int heigth, int entries);
 protected:
 
