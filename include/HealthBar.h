@@ -18,6 +18,9 @@ private:
 
     sf::RectangleShape _outerRectangle;
     sf::RectangleShape _innerRectangle;
+
+    sf::Font font;
+    sf::Text HPtext;
 public:
     void UpdatePosition();
     void setCurrentHp(int currentHp);
