@@ -28,7 +28,7 @@ void Level::FromByteArray(std::vector<char> &byteArray) {
 bool Level::GenerateLevel(int width, int heigth, Level::LevelType type, int traps, int enemies) {
     GenerateCellTypeGrid(width, heigth);
     GenerateMap(width, heigth);
-//    GenerateEntries();
+    GenerateEntries(width, heigth, 2);
 //    GenerateEnemies();
 //    GenerateTraps();
     return true;
@@ -53,8 +53,39 @@ std::vector<char> &Level::ToByteArray() {
     return res;
 }
 
-bool Level::GenerateEntries(int) {
-    // TODO: Generate Entries
+bool Level::GenerateEntries(int width, int heigth, int entries) {
+    int numCells = (width - 4) * 2;
+    int failnum = 0;
+    const int threshold = 100;
+    std::vector<int> entry;
+    while (entries > 0 && failnum < threshold) {
+        bool fail = false;
+        int now = rand() % numCells;
+        for (int tmp : entry) {
+            if ((tmp / (width - 4)) ^ (now / (width - 4))) continue;
+            if (abs(tmp - now) < 3) {
+                fail = true;
+                break;
+            }
+        }
+        if (!fail) {
+            entries--;
+            entry.push_back(now);
+        } else {
+            failnum += fail;
+        }
+    }
+    for (int i = 0; i < (int) entry.size(); i++) {
+        if (entry[i] / (width - 4)) {
+            AddElement(entry[i] % (width - 4) + 2, heigth - 1, BottomDoor);
+        } else {
+            if (Random(2, 0, 1, 1, 1)) {
+                AddElement(entry[i] % (width - 4) + 2, 1, TopRoundDoor);
+            } else {
+                AddElement(entry[i] % (width - 4) + 2, 1, TopSquareDoor);
+            }
+        }
+    }
     return false;
 }
 

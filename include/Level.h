@@ -25,7 +25,7 @@ private:
     bool GenerateMap(int width, int heigth, int difficulty = 0) override;
     bool GenerateEnemies(int enemies);
     bool GenerateTraps(int traps);
-    bool GenerateEntries(int entries);
+    bool GenerateEntries(int width, int heigth, int entries);
 protected:
 
     std::vector<std::shared_ptr<Character>> _characters;

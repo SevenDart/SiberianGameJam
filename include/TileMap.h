@@ -18,7 +18,7 @@ protected:
         int width, height;
         int offsetX, offsetY;
     };
-    constexpr static const Element TopSquareDoor = {213, 3, 3, -1, -1};
+    constexpr static const Element TopSquareDoor = {181, 3, 3, -1, -1};
     constexpr static const Element TopRoundDoor = {921, 3, 3, -1, -1};
     constexpr static const Element BottomDoor = {278, 3, 2, -1, -1};
     void AddElement(int x, int y, const Element element);
