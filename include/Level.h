@@ -53,6 +53,8 @@ public:
     void AddEntry(Entry *entry);
     void AddCharacter(Character* character);
 
+    std::vector<std::shared_ptr<Character>> &GetCharacters();
+
     ///Generate functions
     bool GenerateLevel(int width, int heigth, LevelType type = Level::LevelType::COMBAT, int traps = 0, int enemies = 0);
 };
