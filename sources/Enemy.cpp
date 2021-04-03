@@ -25,7 +25,7 @@ Enemy::Enemy(int strength, int agility, int intelligence, std::shared_ptr<Weapon
 
 void Enemy::Follow() {
     sf::Vector2u step = FindPath();
-    Move(step);
+    Move(_indexPosition - step);
 }
 
 int Enemy::CountDistance() {
