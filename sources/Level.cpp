@@ -128,7 +128,7 @@ bool Level::GenerateEntries(int width, int heigth, int entries) {
     return entry.size() >= 2;
 }
 
-const std::vector<std::shared_ptr<Entry>> &Level::GetEntries() const {
+std::vector<std::shared_ptr<Entry>> &Level::GetEntries() {
     return _entries;
 }
 
@@ -143,6 +143,9 @@ bool Level::GenerateMap(int width, int heigth) {
     auto IsValid = [](int x, int y, int width, int heigth) {
         return x >= 0 && x < width && y >= 0 && y < heigth;
     };
+    int lightoffset = 0;
+    int darkoffset = 32 * 8;
+    int offset = Random(2, lightoffset, 1, darkoffset, 1);
     for (int i = heigth - 1; i >= 0; i--) {
         for (int j = 0; j < width; j++) {
             if (!_cells[i][j].tileNumbers.empty()) continue;
@@ -151,15 +154,15 @@ bool Level::GenerateMap(int width, int heigth) {
                     _cells[i][j] = Cell(true, NULL, NULL, 1,
 //                                        Random(29,
                                         Random(9,
-                                               336, 500,
+                                               336 + offset, 500,
 //                                               344, 1, 345, 1, 346, 1, 347, 1, 348, 1, 349, 1,
 //                                               376, 1, 381, 1,
 //                                               408, 1, 413, 1,
 //                                               440, 1, 445, 1,
 //                                               472, 1, 477, 1,
 //                                               504, 1, 505, 1, 506, 1, 507, 1, 508, 1, 509, 1,
-                                               537, 5, 538, 5, 539, 5, 540, 5,
-                                               569, 5, 570, 5, 571, 5, 572, 5
+                                               537 + offset, 5, 538 + offset, 5, 539 + offset, 5, 540 + offset, 5,
+                                               569 + offset, 5, 570 + offset, 5, 571 + offset, 5, 572 + offset, 5
                                                ));
                     break;
                 }

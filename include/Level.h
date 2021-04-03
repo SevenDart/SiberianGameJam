@@ -49,7 +49,7 @@ public:
     std::vector<char> &ToByteArray();
     void FromByteArray(std::vector<char> &byteArray);
 
-    const std::vector<std::shared_ptr<Entry>> &GetEntries() const;
+    std::vector<std::shared_ptr<Entry>> &GetEntries();
     void AddEntry(Entry *entry);
 
     ///Generate functions

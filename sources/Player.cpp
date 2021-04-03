@@ -4,6 +4,8 @@
 
 #include "../include/Player.h"
 #include "../include/Game.h"
+#include "../include/Entry.h"
+#include <memory>
 
 void Player::Update() {
     Character::Update();
@@ -85,7 +87,31 @@ const sf::View &Player::getCamera() const {
     return _camera;
 }
 
+
 void Player::Move(sf::Vector2u newPosition) {
+    auto entries = Level::currentLevel->GetEntries();
+    for (auto entry : entries) {
+        if (entry->Position == newPosition) {
+            if (entry->NextLevel == nullptr) {
+                entry->NextLevel = std::make_shared<Level>(10, 10, Level::LevelType::COMBAT, rand() % 10, rand() % 10);
+                entry->NextLevel->Load();
+                entry->NextLevel->GenerateVertices();
+                entry->NextLevel->GetEntries().front()->NextLevel = std::shared_ptr<Level>(Level::currentLevel);
+                entry->NextLevelEntry = std::shared_ptr<Entry>(entry->NextLevel->GetEntries().front());
+                entry->NextLevelEntry->NextLevelEntry = entry;
+                newPosition = entry->NextLevel->GetEntries().front()->Position;
+                if (newPosition.y == 1) newPosition.y++;
+                else newPosition.y--;
+                Level::currentLevel = entry->NextLevel.get();
+                break;
+            } else {
+                newPosition = entry->NextLevelEntry->Position;
+                Level::currentLevel = entry->NextLevel.get();
+                if (newPosition.y == 1) newPosition.y++;
+                else newPosition.y--;
+            }
+        }
+    }
     Character::Move(newPosition);
     _camera.setCenter(this->getPosition());
 }

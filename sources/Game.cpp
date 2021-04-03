@@ -20,7 +20,7 @@ void Game::Init() {
 
     Level::currentLevel = &map;
 
-    map.AddEntry(new Entry(sf::Vector2u(1, 2), nullptr));
+//    map.AddEntry(new Entry(sf::Vector2u(1, 2), nullptr));
 
     auto weapon = new Weapon(Weapon::MainParameter::STRENGTH, 1,
                              std::make_shared<Modificator>(nullptr, 1), 1);
@@ -39,7 +39,7 @@ void Game::Render() {
 
     _mainWindow->clear();
 
-    _mainWindow->draw(map);
+    _mainWindow->draw(*Level::currentLevel);
 
     _mainWindow->draw(*player);
 
