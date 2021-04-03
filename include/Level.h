@@ -12,6 +12,20 @@
 class Entry;
 
 class Level : public TileMap {
+private:
+    enum class CellType {
+        FLOOR,
+        WALL,
+        ENEMY,
+        TRAP,
+        ENTRY
+    };
+    std::vector<std::vector<CellType>> _CellTypeGrid;
+    void GenerateCellTypeGrid(int width, int heigth);
+    bool GenerateMap(int width, int heigth, int difficulty = 0) override;
+    bool GenerateEnemies(int enemies);
+    bool GenerateTraps(int traps);
+    bool GenerateEntries(int entries);
 protected:
 
     std::vector<std::shared_ptr<Character>> _characters;
@@ -42,9 +56,6 @@ public:
 
     ///Generate functions
     bool GenerateLevel(int width, int heigth, LevelType type = Level::LevelType::COMBAT, int traps = 0, int enemies = 0);
-    bool GenerateEnemies(int enemies);
-    bool GenerateTraps(int traps);
-    bool GenerateEntries(int entries);
 };
 
 #endif //SIBERIANGAMEJAM_LEVEL_H

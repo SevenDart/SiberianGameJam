@@ -3,6 +3,8 @@
 //
 
 #include "../include/TileMap.h"
+#include <cstdarg>
+#include <algorithm>
 
 void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     states.transform *= getTransform();
@@ -33,7 +35,7 @@ void TileMap::SetCells(const CellMatrix &cells) {
     _cells = CellMatrix(cells);
 }
 
-void TileMap::GenerateMap(int width, int heigth, int difficulty) {
+bool TileMap::GenerateMap(int width, int heigth, int difficulty) {
     _cells.resize(heigth);
     for (int i = 0; i < heigth; i++) _cells[i].resize(width);
     for (int i = 0; i < width; i++) {
@@ -51,6 +53,7 @@ void TileMap::GenerateMap(int width, int heigth, int difficulty) {
             _cells[i][j] = Cell(true, NULL, NULL, 1, 369);
         }
     }
+    return true;
 }
 
 void TileMap::GenerateVertices() {
@@ -82,6 +85,36 @@ void TileMap::GenerateVertices() {
 
 const CellMatrix &TileMap::GetCells() {
     return _cells;
+}
+
+void TileMap::AddElement(int x, int y, const TileMap::Element element) {
+    for (int i = 0; i < element.height; i++) {
+        for (int j = 0; j < element.width; j++) {
+            _cells[y + element.offsetY + i][x + element.offsetX + j].tileNumbers.push_back(element.basetile + (i * 32) + j);
+        }
+    }
+}
+
+/*
+ * Random choose of n pairs
+ * args:
+ *      n - number of pairs
+ *      n pairs {int value, int chance}
+ */
+int TileMap::Random(int n, ...) {
+    va_list list;
+    va_start(list, n);
+    std::vector<std::pair<int, int>> tmp;
+    int value = va_arg(list, int);
+    tmp.emplace_back(value, va_arg(list, int));
+    for (int i = 1; i < n; i++) {
+        value = va_arg(list, int);
+        tmp.emplace_back(value, va_arg(list, int));
+        tmp[tmp.size() - 1].second += tmp[tmp.size() - 2].second;
+    }
+    va_end(list);
+    int res = rand() % tmp.back().second;
+    return std::upper_bound(tmp.begin(), tmp.end(), std::make_pair(0, res), [](const std::pair<int, int> &left, const std::pair<int, int> &right) { return left.second < right.second;})->first;
 }
 
 

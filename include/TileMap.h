@@ -12,6 +12,19 @@ typedef std::vector<std::vector<Cell>> CellMatrix;
 
 class TileMap : public sf::Drawable, public sf::Transformable {
 protected:
+
+    struct Element {
+        int basetile;
+        int width, height;
+        int offsetX, offsetY;
+    };
+    constexpr static const Element TopSquareDoor = {213, 3, 3, -1, -1};
+    constexpr static const Element TopRoundDoor = {921, 3, 3, -1, -1};
+    constexpr static const Element BottomDoor = {278, 3, 2, -1, -1};
+    void AddElement(int x, int y, const Element element);
+    static int Random(int n, ...);
+
+
     CellMatrix _cells;
     sf::VertexArray m_vertices;
     sf::Texture m_tileset;
@@ -25,9 +38,8 @@ public:
     bool Load();
     void SetCells(const CellMatrix &cells);
     const CellMatrix &GetCells();
-    void GenerateMap(int width, int heigth, int difficulty = 0);
+    virtual bool GenerateMap(int width, int heigth, int difficulty = 0);
     void GenerateVertices();
-
 
     const sf::Vector2u TILE_SIZE = sf::Vector2u(32, 32);
 };
