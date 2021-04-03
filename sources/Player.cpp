@@ -59,8 +59,6 @@ Player::Player(int strength, int agility, int intelligence, std::shared_ptr<Weap
     _animations[States::IDLE].load("../resources/dude/anim_idle_", 4);
     _animations[States::HIT].load("../resources/dude/anim_hit_", 1);
 
-    name = "Player";
-
     _isPressed[sf::Keyboard::Down] = false;
     _isPressed[sf::Keyboard::Up] = false;
     _isPressed[sf::Keyboard::Left] = false;
@@ -84,6 +82,7 @@ const sf::View &Player::getCamera() const {
 void Player::Move(sf::Vector2u newPosition) {
     Character::Move(newPosition);
     _camera.setCenter(this->getPosition());
+    _ui->getHealthBar()->UpdatePosition();
     Game::currentGame->UpdateCharacters();
 }
 
