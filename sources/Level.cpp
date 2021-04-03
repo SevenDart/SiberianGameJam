@@ -38,7 +38,7 @@ bool Level::GenerateLevel(int width, int heigth, Level::LevelType type, int trap
                                           minNumberOfDoors + 2, 5,
                                           minNumberOfDoors + 3, 1));
     GenerateEnemies(width, heigth, enemies);
-    GenerateTraps(width, heigth, enemies);
+    GenerateTraps(width, heigth, 10);
     return true;
 }
 
@@ -52,7 +52,23 @@ bool Level::GenerateTraps(int width, int heigth, int traps) {
         switch (Random(2, 0, 10, 1, 90)) {
             case 0: {
                 int failnum = 0;
-                int threshold = 0;
+                int threshold = 100;
+                while (failnum < threshold) {
+                    bool fail = false;
+                    int x = rand() % (width - 2) + 1;
+                    int y = rand() % (heigth - 3) + 2;
+                    _cells[y][x].isTrap = true;
+                    fail = !CheckReachability();
+                    if (fail) {
+                        failnum++;
+                        _cells[y][x].isTrap = false;
+                    } else {
+                        // TODO: ADD KILL MODIFICATOR
+                        _cells[y][x].tileNumbers.push_back(836);
+//                        _cells[y][x].modificator = Modificator()
+                        break;
+                    }
+                }
                 break;
             }
             case 1: {
@@ -99,7 +115,6 @@ bool Level::GenerateEntries(int width, int heigth, int entries) {
         if (now / (width - 4)) {
             _entries.push_back(std::make_shared<Entry>(sf::Vector2u(x, heigth - 1), nullptr));
             AddElement(x, heigth - 1, BottomDoor);
-//            _cells[heigth - 1][x].isReachable = true;
         } else {
             if (Random(2, 0, 1, 1, 1)) {
                 AddElement(x, 1, TopRoundDoor);
@@ -107,7 +122,6 @@ bool Level::GenerateEntries(int width, int heigth, int entries) {
                 AddElement(x, 1, TopSquareDoor);
             }
             _entries.push_back(std::make_shared<Entry>(sf::Vector2u(x, 1), nullptr));
-//            _cells[1][x].isReachable = true;
         }
     }
     return entry.size() >= 2;
@@ -217,12 +231,12 @@ void Level::GenerateCellTypeGrid(int width, int heigth, int difficulty) {
     }
 }
 
-bool Level::IsReachable(int x1, int y1, int x2, int y2) {
+bool Level::CheckReachability() {
     int width = _cells.size();
-    if (!width) return false;
+    if (!width || _entries.empty()) return false;
     int heght = _cells[0].size();
-    static int dx[] = {-1, 0, 1, 0};
-    static int dy[] = {0, 1, 0, -1};
+    static const int dx[] = {-1, 0, 1, 0};
+    static const int dy[] = {0, 1, 0, -1};
     auto IsValid = [](int x, int y, int width, int height) {
         return x >= 0 && x < width && y >= 0 && y < height;
     };
@@ -230,7 +244,7 @@ bool Level::IsReachable(int x1, int y1, int x2, int y2) {
     std::vector<std::vector<bool>> visited;
     visited.resize(heght);
     for (int i = 0; i < heght; i++) visited[i].resize(width);
-    q.push(std::make_pair(x1, y1));
+    q.push(std::make_pair(_entries.front()->Position.x, _entries.front()->Position.y));
     while (!q.empty()) {
         std::pair<int, int> now = q.front();
         q.pop();
@@ -238,10 +252,15 @@ bool Level::IsReachable(int x1, int y1, int x2, int y2) {
         for (int i = 0; i < 4; i++) {
             if (IsValid(now.first + dx[i], now.second + dy[i], width, heght)) {
                 int tox = now.first + dx[i], toy = now.second + dy[i];
-                if (x2 == tox && y2 == toy) return true;
+                if (visited[toy][tox]) continue;
                 if (_cells[toy][tox].isReachable && !_cells[toy][tox].isTrap) q.push(std::make_pair(now.first + dx[i], now.second + dy[i]));
             }
         }
     }
-    return false;
+    for (auto entry : _entries) {
+        int y = entry->Position.y + (entry->Position.y == 1 ? 1 : -1);
+        int x = entry->Position.x;
+        if (!visited[y][x]) return false;
+    }
+    return true;
 }

@@ -23,7 +23,7 @@ private:
     bool GenerateEnemies(int width, int heigth, int enemies);
     bool GenerateTraps(int width, int heigth, int traps);
     bool GenerateEntries(int width, int heigth, int entries);
-    bool IsReachable(int x1, int y1, int x2, int y2);
+    bool CheckReachability();
 protected:
 
     std::vector<std::shared_ptr<Character>> _characters;
