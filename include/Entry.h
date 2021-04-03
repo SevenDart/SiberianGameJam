@@ -11,6 +11,7 @@ class Entry {
 public:
     sf::Vector2u Position;
     std::shared_ptr<Level> NextLevel;
+    std::shared_ptr<Entry> NextLevelEntry;
     Entry();
     Entry(sf::Vector2u position, std::shared_ptr<Level> nextLevel);
 };
