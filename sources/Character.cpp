@@ -65,7 +65,7 @@ void Character::Move(sf::Vector2u newPosition) {
         Level::currentLevel->GetCells()[newPosition.y][newPosition.x].character =
                 std::move(Level::currentLevel->GetCells()[_indexPosition.y][_indexPosition.x].character);
         this->setPosition(Level::currentLevel->TILE_SIZE.x * newPosition.x + 4,
-                          Level::currentLevel->TILE_SIZE.y * newPosition.y - Level::currentLevel->TILE_SIZE.y / 2);
+                          Level::currentLevel->TILE_SIZE.y * newPosition.y - 4);
         _indexPosition = newPosition;
     }
 }

@@ -46,8 +46,8 @@ bool Level::GenerateLevel(int width, int heigth, Level::LevelType type, int trap
 void Level::AddCharacter(Character *character) {
     sf::Vector2u startPosition = character->GetIndexPosition();
     GetCells()[startPosition.x][startPosition.y].character = std::shared_ptr<Character>(character);
-    character->setPosition(startPosition.x * TILE_SIZE.x,
-                      startPosition.y * TILE_SIZE.y);
+    character->setPosition(startPosition.x * TILE_SIZE.x + 4,
+                      startPosition.y * TILE_SIZE.y - 4);
     _characters.push_back(std::shared_ptr<Character>(character));
 }
 
@@ -146,17 +146,7 @@ bool Level::GenerateMap(int width, int heigth) {
                 case CellType::FLOOR: {
                     _cells[i][j] = Cell(true, NULL, NULL, 1,
 //                                        Random(29,
-                                        Random(9,
-                                               336, 500,
-//                                               344, 1, 345, 1, 346, 1, 347, 1, 348, 1, 349, 1,
-//                                               376, 1, 381, 1,
-//                                               408, 1, 413, 1,
-//                                               440, 1, 445, 1,
-//                                               472, 1, 477, 1,
-//                                               504, 1, 505, 1, 506, 1, 507, 1, 508, 1, 509, 1,
-                                               537, 5, 538, 5, 539, 5, 540, 5,
-                                               569, 5, 570, 5, 571, 5, 572, 5
-                                               ));
+                                        836);
                     break;
                 }
                 case CellType::WALL: {
