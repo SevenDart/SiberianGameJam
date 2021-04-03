@@ -50,7 +50,11 @@ public:
     void FromByteArray(std::vector<char> &byteArray);
 
     const std::vector<std::shared_ptr<Entry>> &GetEntries() const;
+
+    const std::vector<std::shared_ptr<Character>> &GetCharacters();
+
     void AddEntry(Entry *entry);
+    void AddCharacter(Character* character);
 
     ///Generate functions
     bool GenerateLevel(int width, int heigth, LevelType type = Level::LevelType::COMBAT, int traps = 0, int enemies = 0);

@@ -48,7 +48,7 @@ sf::Vector2u Enemy::FindPath() {
     std::queue<sf::Vector2u> coords;
     coords.push(_indexPosition);
     pathMap[_indexPosition.x][_indexPosition.y] = -2;
-    int step = 0;
+    int step = 1;
     while (!coords.empty()) {
         int length = coords.size();
         for (int i = 0; i < length; i++) {

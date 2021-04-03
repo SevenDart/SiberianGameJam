@@ -34,6 +34,7 @@ public:
     Game();
     void Run();
     void Update();
+    void UpdateCharacters();
     static bool CheckChance(int chance);
 };
 

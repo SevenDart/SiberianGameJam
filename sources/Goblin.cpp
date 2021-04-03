@@ -7,7 +7,9 @@
 #include <memory>
 
 Goblin::Goblin() : Enemy(1,1,1, nullptr, sf::Vector2u(1, 1)) {
-    _weapon = std::make_shared<Weapon>(Weapon::MainParameter::STRENGTH, 1, nullptr, 1);
+    _weapon = std::make_shared<Weapon>(Weapon::MainParameter::STRENGTH,
+                                       1, std::make_shared<Modificator>(Modificator(nullptr,0)), 1);
+    _animations[States::IDLE].load("../resources/goblin/anim_idle_", 4);
 }
 
 Goblin::Goblin(sf::Vector2u position) : Goblin() {

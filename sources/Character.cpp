@@ -41,8 +41,6 @@ Character::Character(int strength, int agility, int intelligence, std::shared_pt
     _strength(strength), _agility(agility),
     _intelligence(intelligence), _weapon(weapon), _indexPosition(startPosition)
     {
-        this->setPosition(startPosition.x * Level::currentLevel->TILE_SIZE.x + 4,
-                          startPosition.y * Level::currentLevel->TILE_SIZE.y - Level::currentLevel->TILE_SIZE.y / 2);
         _healthPoints = HEALTH_PER_POINT * strength;
         _currentState = States::IDLE;
         _gold = 0;

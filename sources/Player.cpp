@@ -5,11 +5,6 @@
 #include "../include/Player.h"
 #include "../include/Game.h"
 
-void Player::Update() {
-    Character::Update();
-}
-
-
 
 Player::~Player() {
 
@@ -50,9 +45,6 @@ void Player::Input() {
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
         _isPressed[sf::Keyboard::Down] = true;
     }
-
-
-    Game::currentGame->Update();
 }
 
 Player::Player(int strength, int agility, int intelligence, std::shared_ptr<Weapon> weapon, sf::Vector2u startPosition)
@@ -64,6 +56,8 @@ Player::Player(int strength, int agility, int intelligence, std::shared_ptr<Weap
     _ui->getHealthBar()->setMaxHp(this->_healthPoints);
     _ui->getHealthBar()->setCurrentHp(this->_healthPoints);
     _animations[States::IDLE].load("../resources/dude/anim_idle_", 4);
+
+    name = "Player";
 
     _isPressed[sf::Keyboard::Down] = false;
     _isPressed[sf::Keyboard::Up] = false;
@@ -88,4 +82,8 @@ const sf::View &Player::getCamera() const {
 void Player::Move(sf::Vector2u newPosition) {
     Character::Move(newPosition);
     _camera.setCenter(this->getPosition());
+    Game::currentGame->UpdateCharacters();
+}
+
+void Player::Update() {
 }

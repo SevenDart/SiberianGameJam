@@ -20,9 +20,9 @@ public:
     Player(int strength, int agility, int intelligence, std::shared_ptr<Weapon> weapon, sf::Vector2u startPosition);
     ~Player() override;
 
-    void UpdateSprite(float elapsedTime) override;
-    void Update() override;
+    virtual void UpdateSprite(float elapsedTime) override;
     virtual void GetDamage(int damage) override;
+    virtual void Update() override;
 
     void Move(sf::Vector2u newPosition) override;
 

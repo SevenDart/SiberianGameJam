@@ -7,6 +7,7 @@
 #include <memory>
 #include <queue>
 #include "../include/Entry.h"
+#include "../include/Goblin.h"
 
 Level::Level() : TileMap() {
 }
@@ -42,8 +43,18 @@ bool Level::GenerateLevel(int width, int heigth, Level::LevelType type, int trap
     return true;
 }
 
+void Level::AddCharacter(Character *character) {
+    sf::Vector2u startPosition = character->GetIndexPosition();
+    GetCells()[startPosition.x][startPosition.y].character = std::shared_ptr<Character>(character);
+    character->setPosition(startPosition.x * TILE_SIZE.x,
+                      startPosition.y * TILE_SIZE.y);
+    _characters.push_back(std::shared_ptr<Character>(character));
+}
+
 bool Level::GenerateEnemies(int width, int heigth, int enemies) {
     // TODO: Generate Enemies;
+    auto *goblin = new Goblin(sf::Vector2u(5,5));
+    AddCharacter(goblin);
     return false;
 }
 
@@ -245,3 +256,9 @@ bool Level::IsReachable(int x1, int y1, int x2, int y2) {
     }
     return false;
 }
+
+const std::vector<std::shared_ptr<Character>> &Level::GetCharacters() {
+    return _characters;
+}
+
+

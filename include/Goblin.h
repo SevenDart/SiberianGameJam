@@ -8,8 +8,10 @@
 #include "Enemy.h"
 
 class Goblin: public Enemy {
+public:
     Goblin();
     Goblin(sf::Vector2u position);
+private:
 };
 
 

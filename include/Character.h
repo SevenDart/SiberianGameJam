@@ -15,6 +15,7 @@ class Weapon;
 
 class Character : public sf::Drawable, public sf::Transformable {
 public:
+    std::string name = "Character";
     enum class States{IDLE, WALK, HIT};
 
     virtual void Update();

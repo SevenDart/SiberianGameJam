@@ -5,6 +5,7 @@
 #include "../include/Game.h"
 #include <chrono>
 #include <memory>
+#include <iostream>
 #include "../include/Weapon.h"
 #include "../include/Entry.h"
 
@@ -20,13 +21,14 @@ void Game::Init() {
 
     Level::currentLevel = &map;
 
-    map.AddEntry(new Entry(sf::Vector2u(1, 2), nullptr));
 
-    auto weapon = new Weapon(Weapon::MainParameter::STRENGTH, 1,
+    auto *weapon = new Weapon(Weapon::MainParameter::STRENGTH, 1,
                              std::make_shared<Modificator>(nullptr, 1), 1);
-    player = new Player(1, 1, 1,
-                        std::shared_ptr<Weapon>(weapon), map.GetEntries()[0]->Position);
 
+    player = new Player(1, 1, 1,
+                        std::shared_ptr<Weapon>(weapon), sf::Vector2u(2,2));
+
+    Level::currentLevel->AddCharacter(player);
 }
 
 Game::Game() {
@@ -41,7 +43,9 @@ void Game::Render() {
 
     _mainWindow->draw(map);
 
-    _mainWindow->draw(*player);
+    for (auto character : Level::currentLevel->GetCharacters()) {
+        _mainWindow->draw(*character);
+    }
 
     _mainWindow->display();
 }
@@ -49,12 +53,15 @@ void Game::Render() {
 void Game::Update() {
     UpdateSFMLEvents();
     float elapsedTime = dtClock.restart().asSeconds();
-    player->UpdateSprite(elapsedTime);
+
+    for (auto character: Level::currentLevel->GetCharacters())
+        character->UpdateSprite(elapsedTime);
 }
 
 void Game::Run() {
     while (_mainWindow->isOpen()) {
         player->Input();
+        Update();
         Render();
     }
 }
@@ -80,5 +87,12 @@ sf::RenderWindow *Game::getMainWindow() const {
 
 Player *Game::GetPlayer() const {
     return player;
+}
+
+void Game::UpdateCharacters() {
+    auto characters = Level::currentLevel->GetCharacters();
+    for (auto character: characters) {
+        character->Update();
+    }
 }
 
