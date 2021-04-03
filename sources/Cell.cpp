@@ -7,12 +7,13 @@
 
 Cell::Cell() {
     isReachable = false;
+    isTrap = false;
     tileNumbers.clear();
     modificator.reset();
 }
 
 Cell::Cell(bool isReachable, std::shared_ptr<Character> character, std::shared_ptr<Modificator> modificator, int n,
-           ...) : isReachable(isReachable), character(character), modificator(modificator) {
+           ...) : isReachable(isReachable), character(character), modificator(modificator), isTrap(false) {
     va_list list;
     va_start(list, n);
     for (int i = 0; i < n; i++) {

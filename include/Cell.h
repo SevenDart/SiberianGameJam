@@ -11,6 +11,7 @@
 class Cell {
 public:
     bool isReachable;
+    bool isTrap;
     std::shared_ptr<Character> character;
     std::shared_ptr<Modificator> modificator;
     std::vector<int> tileNumbers;
