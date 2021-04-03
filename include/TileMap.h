@@ -33,7 +33,7 @@ private:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 public:
     TileMap();
-    TileMap(int width, int heigth, int difficulty = 0);
+    TileMap(int width, int heigth);
     TileMap(const CellMatrix &cells);
     bool Load();
     void SetCells(const CellMatrix &cells);
