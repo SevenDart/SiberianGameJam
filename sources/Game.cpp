@@ -5,9 +5,7 @@
 #include "../include/Game.h"
 #include <chrono>
 #include <memory>
-#include <iostream>
 #include "../include/Weapon.h"
-#include "../include/Level.h"
 #include "../include/Entry.h"
 
 void Game::InitWindow() {
@@ -22,7 +20,7 @@ void Game::Init() {
 
     Level::currentLevel = &map;
 
-    map.AddEntry(new Entry(sf::Vector2u(1, 1), nullptr));
+    map.AddEntry(new Entry(sf::Vector2u(1, 2), nullptr));
 
     auto weapon = new Weapon(Weapon::MainParameter::STRENGTH, 1,
                              std::make_shared<Modificator>(nullptr, 1), 1);
