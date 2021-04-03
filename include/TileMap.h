@@ -38,7 +38,7 @@ public:
     bool Load();
     void SetCells(const CellMatrix &cells);
     CellMatrix & GetCells();
-    virtual bool GenerateMap(int width, int heigth, int difficulty = 0);
+    virtual bool GenerateMap(int width, int heigth);
     void GenerateVertices();
 
     const sf::Vector2u TILE_SIZE = sf::Vector2u(32, 32);
