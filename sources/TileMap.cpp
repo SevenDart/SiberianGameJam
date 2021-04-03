@@ -83,7 +83,7 @@ void TileMap::GenerateVertices() {
     }
 }
 
-const CellMatrix &TileMap::GetCells() {
+CellMatrix & TileMap::GetCells() {
     return _cells;
 }
 

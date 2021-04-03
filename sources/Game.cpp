@@ -78,3 +78,7 @@ sf::RenderWindow *Game::getMainWindow() const {
     return _mainWindow;
 }
 
+Player *Game::GetPlayer() const {
+    return player;
+}
+

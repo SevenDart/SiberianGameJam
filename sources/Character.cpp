@@ -59,11 +59,18 @@ void Character::GetModificator(Modificator modificator) {
 }
 
 void Character::Move(sf::Vector2u newPosition) {
-    if (Level::currentLevel->GetCells()[newPosition.y][newPosition.x].isReachable) {
+    CellMatrix map = Level::currentLevel->GetCells();
+    if (map[newPosition.y][newPosition.x].isReachable && map[newPosition.y][newPosition.x].character == nullptr) {
+        Level::currentLevel->GetCells()[newPosition.y][newPosition.x].character = std::shared_ptr<Character>(this);
+        Level::currentLevel->GetCells()[_indexPosition.y][_indexPosition.x].character = nullptr;
         this->setPosition(Level::currentLevel->TILE_SIZE.x * newPosition.x + 4,
                           Level::currentLevel->TILE_SIZE.y * newPosition.y - Level::currentLevel->TILE_SIZE.y / 2);
         _indexPosition = newPosition;
     }
+}
+
+const sf::Vector2u &Character::GetIndexPosition() const {
+    return _indexPosition;
 }
 
 

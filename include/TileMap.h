@@ -37,7 +37,7 @@ public:
     TileMap(const CellMatrix &cells);
     bool Load();
     void SetCells(const CellMatrix &cells);
-    const CellMatrix &GetCells();
+    CellMatrix & GetCells();
     virtual bool GenerateMap(int width, int heigth, int difficulty = 0);
     void GenerateVertices();
 

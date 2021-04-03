@@ -16,12 +16,18 @@ class Weapon;
 class Character : public sf::Drawable, public sf::Transformable {
 public:
     enum class States{IDLE, WALK, HIT};
+
     virtual void Update();
     virtual void UpdateSprite(float elapsedTime);
+
     virtual void GetDamage(int damage);
     virtual void Attack(Character character);
     virtual void Move(sf::Vector2u newPosition);
+
     void GetModificator(Modificator modificator);
+
+    const sf::Vector2u &GetIndexPosition() const;
+
     Character(int strength, int agility, int intelligence, std::shared_ptr<Weapon> weapon, sf::Vector2u startPosition);
     virtual ~Character();
 protected:

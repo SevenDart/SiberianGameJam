@@ -29,6 +29,8 @@ public:
 
     sf::RenderWindow *getMainWindow() const;
 
+    Player *GetPlayer() const;
+
     Game();
     void Run();
     void Update();

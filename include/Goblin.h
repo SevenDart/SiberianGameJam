@@ -5,9 +5,11 @@
 #ifndef SIBERIANGAMEJAM_GOBLIN_H
 #define SIBERIANGAMEJAM_GOBLIN_H
 
+#include "Enemy.h"
 
-class Goblin {
-
+class Goblin: public Enemy {
+    Goblin();
+    Goblin(sf::Vector2u position);
 };
 
 
