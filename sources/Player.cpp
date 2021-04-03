@@ -90,20 +90,22 @@ void Player::Move(sf::Vector2u newPosition) {
                 entry->NextLevel = std::make_shared<Level>(10, 10, Level::LevelType::COMBAT, rand() % 10, rand() % 10);
                 entry->NextLevel->Load();
                 entry->NextLevel->GenerateVertices();
-                entry->NextLevel->GetEntries().front()->NextLevel = std::shared_ptr<Level>(Level::currentLevel);
                 entry->NextLevelEntry = std::shared_ptr<Entry>(entry->NextLevel->GetEntries().front());
+                entry->NextLevelEntry->NextLevel = std::shared_ptr<Level>(Level::currentLevel);
                 entry->NextLevelEntry->NextLevelEntry = entry;
-                newPosition = entry->NextLevel->GetEntries().front()->Position;
-                if (newPosition.y == 1) newPosition.y++;
-                else newPosition.y--;
-                Level::currentLevel = entry->NextLevel.get();
-                break;
-            } else {
-                newPosition = entry->NextLevelEntry->Position;
-                Level::currentLevel = entry->NextLevel.get();
-                if (newPosition.y == 1) newPosition.y++;
-                else newPosition.y--;
+                entry->NextLevel->GetCharacters().push_back(std::shared_ptr<Character>(this));
             }
+            newPosition = entry->NextLevelEntry->Position;
+            if (newPosition.y == 1) newPosition.y++;
+            else newPosition.y--;
+            entry->NextLevel->GetCells()[newPosition.y][newPosition.x].character = std::move(Level::currentLevel->GetCells()[_indexPosition.y][_indexPosition.x].character);
+            _indexPosition = newPosition;
+            setPosition(_indexPosition.x * 32 + 4,_indexPosition.y * 32 - 4);
+            Level::currentLevel = entry->NextLevel.get();
+            _camera.setCenter(this->getPosition());
+            _ui->getHealthBar()->UpdatePosition();
+            Game::currentGame->UpdateCharacters();
+            return;
         }
     }
     Character::Move(newPosition);
