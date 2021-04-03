@@ -92,7 +92,7 @@ Player *Game::GetPlayer() const {
 void Game::UpdateCharacters() {
     auto characters = Level::currentLevel->GetCharacters();
     for (auto &character: characters) {
-        if (character->name != "Player") character->Update();
+        character->Update();
     }
 }
 
