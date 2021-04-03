@@ -8,6 +8,7 @@
 #include <iostream>
 #include "../include/Weapon.h"
 #include "../include/Entry.h"
+#include "../include/Background.h"
 
 void Game::InitWindow() {
     _mainWindow = new sf::RenderWindow(sf::VideoMode(800, 600), "Game");
@@ -41,6 +42,8 @@ void Game::Render() {
     _mainWindow->setView(player->getCamera());
 
     _mainWindow->clear();
+
+    _mainWindow->draw(*Background::currentBackground);
 
     _mainWindow->draw(*Level::currentLevel);
 
