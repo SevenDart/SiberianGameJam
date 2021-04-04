@@ -85,7 +85,7 @@ void Character::Death() {
         if ((*it).get() == this)
             Level::currentLevel->GetCharacters().erase(it);
     Level::currentLevel->AddDeadCharacter(std::move(Level::currentLevel->GetCells()[_indexPosition.y][_indexPosition.x].character));
-    if (Level::currentLevel->getDeadCharacters().size() == Level::currentLevel->getEnemyCount()) {
+    if (Level::currentLevel->GetCharacters().size() == 1) {
         Reward::currentReward->Show();
     }
     //delete this;
