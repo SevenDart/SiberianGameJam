@@ -88,7 +88,7 @@ void Player::Move(sf::Vector2u newPosition) {
     for (auto entry : entries) {
         if (entry->Position == newPosition) {
             if (entry->NextLevel == nullptr) {
-                entry->NextLevel = std::make_shared<Level>(rand() % 5 + 10, rand() % 5 + 10, Level::LevelType::COMBAT, rand() % 10, rand() % 10);
+                entry->NextLevel = std::make_shared<Level>(rand() % 5 + 10, rand() % 5 + 10, Level::LevelType::COMBAT, rand() % 5, rand() % 5);
                 entry->NextLevel->Load();
                 entry->NextLevel->GenerateVertices();
                 entry->NextLevelEntry = std::shared_ptr<Entry>(entry->NextLevel->GetEntries().front());
