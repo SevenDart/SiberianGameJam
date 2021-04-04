@@ -32,10 +32,10 @@ void Game::Init() {
     sound.setLoop(true);
     sound.play();
 
-    auto *weapon = new Weapon(Weapon::MainParameter::STRENGTH, 1,
+    auto *weapon = new Weapon(Weapon::MainParameter::STRENGTH, 5,
                              std::make_shared<Modificator>(nullptr, 1), 1);
 
-    player = new Player(1, 1, 1,
+    player = new Player(1, 2, 3,
                         std::shared_ptr<Weapon>(weapon), sf::Vector2u(2,2));
 
     player->Update();
@@ -138,6 +138,7 @@ void Game::CheckCombatButtons() {
                 sf::Vector2u indexPosition((position.x + 1) / 32, (position.y + 1) / 32);
                 void* pointerToCharacter =(void*)Level::currentLevel->GetCells()[indexPosition.y][indexPosition.x].character.get();
                 button->GetAction()(1, pointerToCharacter);
+                break;
             }
         }
     }

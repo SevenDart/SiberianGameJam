@@ -30,6 +30,7 @@ protected:
     std::vector<std::shared_ptr<Button>> _buttons;
     std::vector<std::shared_ptr<Character>> _characters;
     std::vector<std::shared_ptr<Entry>> _entries;
+    std::vector<std::shared_ptr<Character>> _deadCharacters;
 
 public:
     enum class LevelType {
@@ -56,10 +57,12 @@ public:
     void AddEntry(Entry *entry);
     void AddCharacter(Character* character);
     void AddButton(Button *button);
+    void AddDeadCharacter(std::shared_ptr<Character> character);
 
     std::vector<std::shared_ptr<Button>> GetButtons();
 
     void ClearButtons();
+
 
     std::vector<std::shared_ptr<Character>> &GetCharacters();
 

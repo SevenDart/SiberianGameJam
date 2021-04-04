@@ -18,6 +18,8 @@ public:
 
     int GetDistance() const;
 
+    int Upgrade();
+
 private:
     MainParameter _mainParameter;
     int _damage;

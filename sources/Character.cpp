@@ -34,7 +34,7 @@ void Character::GetDamage(int damage) {
     if (Game::CheckChance(_agility))
         return;
     _healthPoints -= damage;
-    if (damage < 0)
+    if (_healthPoints < 0)
         Death();
 }
 
@@ -81,8 +81,10 @@ void Character::SetCurrentState(Character::States newState) {
 
 void Character::Death() {
     for (auto it = Level::currentLevel->GetCharacters().begin(); it != Level::currentLevel->GetCharacters().end(); it++)
-        if ((*it).get() == this) Level::currentLevel->GetCharacters().erase(it);
-    delete this;
+        if ((*it).get() == this)
+            Level::currentLevel->GetCharacters().erase(it);
+    Level::currentLevel->AddDeadCharacter(std::move(Level::currentLevel->GetCells()[_indexPosition.y][_indexPosition.x].character));
+    //delete this;
 }
 
 const std::shared_ptr<Weapon> &Character::GetWeapon() const {
@@ -103,6 +105,22 @@ int Character::GetIntelligence() const {
 
 int Character::GetHP() const {
     return _healthPoints;
+}
+
+int Character::UpgradeStrength() {
+    return _strength++;
+}
+
+int Character::UpgradeAgility() {
+    return _agility++;
+}
+
+int Character::UpgradeIntelligence() {
+    return _intelligence++;
+}
+
+int Character::UpgradeWeapon() {
+    return _weapon->Upgrade();
 }
 
 

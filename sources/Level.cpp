@@ -297,5 +297,9 @@ void Level::ClearButtons() {
     _buttons.clear();
 }
 
+void Level::AddDeadCharacter(std::shared_ptr<Character> character) {
+    _deadCharacters.push_back(character);
+}
+
 
 

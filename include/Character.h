@@ -36,6 +36,11 @@ public:
     int GetAgility() const;
     int GetIntelligence() const;
 
+    int UpgradeStrength();
+    int UpgradeAgility();
+    int UpgradeIntelligence();
+    int UpgradeWeapon();
+
 
     Character(int strength, int agility, int intelligence, std::shared_ptr<Weapon> weapon, sf::Vector2u startPosition);
     virtual ~Character();

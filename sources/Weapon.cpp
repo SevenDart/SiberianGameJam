@@ -37,3 +37,7 @@ int Weapon::GetDistance() const {
     return _distance;
 }
 
+int Weapon::Upgrade() {
+    return _damage++;
+}
+
