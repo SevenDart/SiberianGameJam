@@ -7,9 +7,15 @@
 
 #include "SFML/Graphics.hpp"
 #include "Button.h"
+#include <memory>
 
 class Reward : public sf::Drawable, public sf::Transformable {
 private:
+    sf::Font font;
+    sf::Text text;
+
+    std::vector<std::shared_ptr<Button>> _buttons;
+
     sf::RectangleShape _background;
     Button* _upgradeStrength;
     Button* _upgradeAgility;
@@ -28,6 +34,10 @@ public:
     void UpdatePosition();
 
     inline static Reward* currentReward;
+
+    bool isVisibility() const;
+
+    const std::vector<std::shared_ptr<Button>> &getButtons() const;
 
     Reward();
 };

@@ -9,6 +9,7 @@
 #include "../include/Weapon.h"
 #include "../include/Entry.h"
 #include "../include/Background.h"
+#include "../include/Reward.h"
 
 void Game::InitWindow() {
     _mainWindow = new sf::RenderWindow(sf::VideoMode(800, 600), "Game");
@@ -32,7 +33,7 @@ void Game::Init() {
     sound.setLoop(true);
     sound.play();
 
-    auto *weapon = new Weapon(Weapon::MainParameter::STRENGTH, 5,
+    auto *weapon = new Weapon(Weapon::MainParameter::STRENGTH, 15,
                              std::make_shared<Modificator>(nullptr, 1), 1);
 
     player = new Player(1, 2, 3,
@@ -40,6 +41,8 @@ void Game::Init() {
 
     player->Update();
     Level::currentLevel->AddCharacter(player);
+    reward = new Reward;
+    reward->Hide();
 }
 
 Game::Game() {
@@ -64,6 +67,8 @@ void Game::Render() {
         _mainWindow->draw(*button);
     }
 
+    _mainWindow->draw(*reward);
+
     _mainWindow->display();
 }
 
@@ -76,6 +81,13 @@ void Game::Update() {
 
     for (auto &button: Level::currentLevel->GetButtons())
         button->UpdatePosition();
+
+    if (Reward::currentReward->isVisibility()) {
+        CheckRewardsButtons();
+    }
+    else {
+        rewardClock.restart();
+    }
 
     if (Level::currentLevel->levelType == Level::LevelType::COMBAT)
         CheckCombatButtons();
@@ -138,6 +150,34 @@ void Game::CheckCombatButtons() {
                 sf::Vector2u indexPosition((position.x + 1) / 32, (position.y + 1) / 32);
                 void* pointerToCharacter =(void*)Level::currentLevel->GetCells()[indexPosition.y][indexPosition.x].character.get();
                 button->GetAction()(1, pointerToCharacter);
+                break;
+            }
+        }
+    }
+}
+
+
+
+void Game::CheckRewardsButtons() {
+    rewardTime -= rewardClock.restart().asSeconds();
+    if (rewardTime > 0) return;
+    for (auto button: Reward::currentReward->getButtons()) {
+        sf::IntRect buttonRect = button->GetSprite().getTextureRect();
+        sf::Vector2f position = button->GetSprite().getPosition();
+        buttonRect.left = position.x;
+        buttonRect.top = position.y;
+        sf::Vector2f mousePosition = Game::currentGame->GetMainWindow()->mapPixelToCoords(sf::Mouse::getPosition(Game::currentGame->GetMainWindow()[0]));
+//        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+//            sf::Vector2i mousePosition = sf::Mouse::getPosition();
+//            std::cout << position.x << " " << position.y << "\n";
+//            std::cout << buttonRect.width << " " << buttonRect.height << "\n";
+//            std::cout << mousePosition.x << " " << mousePosition.y << "\n";
+//            std::cout.flush();
+//        }
+        if (buttonRect.contains(sf::Vector2i(mousePosition.x, mousePosition.y))) {
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                rewardTime = 2;
+                button->GetAction()(0, nullptr);
                 break;
             }
         }

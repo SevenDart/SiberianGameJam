@@ -38,3 +38,7 @@ const std::function<void(int, void*)> &Button::GetAction() const {
 const sf::Vector2f &Button::getSize() const {
     return _size;
 }
+
+void Button::SetPosition(const sf::Vector2i &position) {
+    _position = sf::Vector2f(position);
+}

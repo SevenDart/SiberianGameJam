@@ -11,7 +11,7 @@ HealthBar::HealthBar(int maxHp, int currentHp) : _maxHP(maxHp), _currentHP(curre
     _outerRectangle.setPosition(_position);
     _innerRectangle = sf::RectangleShape(_innerSize);
     _innerRectangle.setPosition(_position);
-    _outerRectangle.setFillColor(sf::Color::White);
+    _outerRectangle.setFillColor(sf::Color::Black);
     _innerRectangle.setFillColor(sf::Color(0, 122, 20));
     font.loadFromFile("../resources/fonts/VT323-Regular.ttf");
     HPtext.setFont(font);

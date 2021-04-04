@@ -12,15 +12,22 @@
 #include "Player.h"
 #include <random>
 #include "Level.h"
+#include "Reward.h"
 
 class Game {
 private:
     sf::RenderWindow* _mainWindow;
+
     sf::Clock dtClock;
+    sf::Clock rewardClock;
+
+    float rewardTime = 2;
+
     Player* player;
     Level map;
     sf::Sound sound;
     sf::SoundBuffer soundBuffer;
+    Reward* reward;
 
     void InitWindow();
     void Init();
@@ -33,10 +40,12 @@ public:
 
     Player *GetPlayer() const;
 
+
     Game();
     void Run();
     void Update();
     void CheckCombatButtons();
+    void CheckRewardsButtons();
     void UpdateCharacters();
     static bool CheckChance(int chance);
 };

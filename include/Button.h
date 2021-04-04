@@ -26,6 +26,8 @@ public:
 
     const sf::Vector2f &getSize() const;
 
+    void SetPosition(const sf::Vector2i &position);
+
     Button(const std::string &textureName, std::function<void(int, void*)> action, sf::Vector2f position,
            sf::Vector2f size);
 };
