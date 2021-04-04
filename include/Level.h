@@ -7,6 +7,7 @@
 
 #include "Character.h"
 #include "TileMap.h"
+#include "Button.h"
 #include <vector>
 
 class Entry;
@@ -26,6 +27,7 @@ private:
     bool IsReachable(int x1, int y1, int x2, int y2);
 protected:
 
+    std::vector<std::shared_ptr<Button>> _buttons;
     std::vector<std::shared_ptr<Character>> _characters;
     std::vector<std::shared_ptr<Entry>> _entries;
 
@@ -35,6 +37,7 @@ public:
         REST,
         TRADE
     };
+    LevelType levelType;
 
     ///static link to current level
     inline static Level* currentLevel;
@@ -53,8 +56,14 @@ public:
 
     std::vector<std::shared_ptr<Character>> &GetCharacters();
 
+    std::vector<std::shared_ptr<Button>> GetButtons();
+
+
     void AddEntry(Entry *entry);
     void AddCharacter(Character* character);
+    void AddButton(Button *button);
+
+    void ClearButtons();
 
     ///Generate functions
     bool GenerateLevel(int width, int heigth, LevelType type = Level::LevelType::COMBAT, int traps = 0, int enemies = 0);

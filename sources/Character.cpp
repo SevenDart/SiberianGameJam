@@ -85,5 +85,9 @@ void Character::Death() {
     delete this;
 }
 
+const std::shared_ptr<Weapon> &Character::GetWeapon() const {
+    return _weapon;
+}
+
 
 Character::~Character() = default;

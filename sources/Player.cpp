@@ -15,7 +15,6 @@ void Player::UpdateSprite(float elapsedTime) {
 }
 
 void Player::Input() {
-
     if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && _isPressed[sf::Keyboard::Left]) {
         Move(_indexPosition + sf::Vector2u(-1, 0));
         _isPressed[sf::Keyboard::Left] = false;
@@ -45,13 +44,15 @@ void Player::Input() {
     else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
         _isPressed[sf::Keyboard::Down] = true;
     }
+
+    _ui->MouseInput();
 }
 
 Player::Player(int strength, int agility, int intelligence, std::shared_ptr<Weapon> weapon, sf::Vector2u startPosition)
         : Character(strength, agility, intelligence,
                     weapon,startPosition) {
     _camera = sf::View(this->getPosition(), sf::Vector2f(400,300));
-    Game::currentGame->getMainWindow()->setView(_camera);
+    Game::currentGame->GetMainWindow()->setView(_camera);
     _ui = new UserInterface();
     _ui->getHealthBar()->setMaxHp(this->_healthPoints);
     _ui->getHealthBar()->setCurrentHp(this->_healthPoints);
@@ -82,7 +83,7 @@ const sf::View &Player::getCamera() const {
 void Player::Move(sf::Vector2u newPosition) {
     Character::Move(newPosition);
     _camera.setCenter(this->getPosition());
-    _ui->getHealthBar()->UpdatePosition();
+    _ui->Update();
     Game::currentGame->UpdateCharacters();
 }
 
