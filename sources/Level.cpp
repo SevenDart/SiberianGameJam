@@ -48,7 +48,7 @@ bool Level::GenerateLevel(int width, int heigth, Level::LevelType type, int trap
 
 void Level::AddCharacter(Character *character) {
     sf::Vector2u startPosition = character->GetIndexPosition();
-    GetCells()[startPosition.x][startPosition.y].character = std::shared_ptr<Character>(character);
+    GetCells()[startPosition.y][startPosition.x].character = std::shared_ptr<Character>(character);
     character->setPosition(startPosition.x * TILE_SIZE.x + 4,
                       startPosition.y * TILE_SIZE.y - 4);
     _characters.push_back(std::shared_ptr<Character>(character));
@@ -82,7 +82,7 @@ bool Level::GenerateEnemies(int width, int heigth, int enemies) {
             }
         }
     }
-    _enemyCount++;
+//    _enemyCount++;
     return false;
 }
 
@@ -321,6 +321,10 @@ void Level::AddButton(Button *button) {
 
 void Level::ClearButtons() {
     _buttons.clear();
+}
+
+void Level::AddDeadCharacter(std::shared_ptr<Character> character) {
+    _deadCharacters.push_back(character);
 }
 
 
