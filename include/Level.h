@@ -14,7 +14,6 @@ class Entry;
 
 class Level : public TileMap {
 private:
-    int _enemyCount;
     enum class CellType {
         FLOOR,
         WALL
@@ -64,11 +63,8 @@ public:
 
     void ClearButtons();
 
-    int getEnemyCount() const;
 
     std::vector<std::shared_ptr<Character>> &GetCharacters();
-
-    std::vector<std::shared_ptr<Character>> &getDeadCharacters();
 
     ///Generate functions
     bool GenerateLevel(int width, int heigth, LevelType type = Level::LevelType::COMBAT, int traps = 0, int enemies = 0);
