@@ -8,6 +8,7 @@
 #include <iostream>
 #include "../include/Weapon.h"
 #include "../include/Entry.h"
+#include "../include/Background.h"
 
 void Game::InitWindow() {
     _mainWindow = new sf::RenderWindow(sf::VideoMode(800, 600), "Game");
@@ -15,13 +16,21 @@ void Game::InitWindow() {
 
 void Game::Init() {
     InitWindow();
-    map.GenerateLevel(9, 9);
     map.Load();
+    map.GenerateLevel(9, 9);
     map.GenerateVertices();
-
     Level::currentLevel = &map;
 
-//    map.AddEntry(new Entry(sf::Vector2u(1, 2), nullptr));
+    Background::currentBackground = new Background;
+    Background::currentBackground->Load();
+    Background::currentBackground->GenerateMap(100, 100);
+    Background::currentBackground->GenerateVertices();
+    Background::currentBackground->setPosition(-50 * 32, -50 * 32);
+
+    soundBuffer.loadFromFile("../resources/Spy.wav");
+    sound.setBuffer(soundBuffer);
+    sound.setLoop(true);
+    sound.play();
 
     auto *weapon = new Weapon(Weapon::MainParameter::STRENGTH, 1,
                              std::make_shared<Modificator>(nullptr, 1), 1);
@@ -41,6 +50,8 @@ void Game::Render() {
     _mainWindow->setView(player->getCamera());
 
     _mainWindow->clear();
+
+    _mainWindow->draw(*Background::currentBackground);
 
     _mainWindow->draw(*Level::currentLevel);
 

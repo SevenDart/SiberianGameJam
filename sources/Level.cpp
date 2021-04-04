@@ -41,7 +41,7 @@ bool Level::GenerateLevel(int width, int heigth, Level::LevelType type, int trap
                                           minNumberOfDoors + 2, 5,
                                           minNumberOfDoors + 3, 1));
     GenerateEnemies(width, heigth, enemies);
-    GenerateTraps(width, heigth, 10);
+    GenerateTraps(width, heigth, traps);
     return true;
 }
 
@@ -248,9 +248,9 @@ void Level::GenerateCellTypeGrid(int width, int heigth, int difficulty) {
 }
 
 bool Level::CheckReachability() {
-    int width = _cells.size();
-    if (!width || _entries.empty()) return false;
-    int heght = _cells[0].size();
+    int height = _cells.size();
+    if (!height || _entries.empty()) return false;
+    int width = _cells[0].size();
     static const int dx[] = {-1, 0, 1, 0};
     static const int dy[] = {0, 1, 0, -1};
     auto IsValid = [](int x, int y, int width, int height) {
@@ -258,15 +258,15 @@ bool Level::CheckReachability() {
     };
     std::queue<std::pair<int, int>> q;
     std::vector<std::vector<bool>> visited;
-    visited.resize(heght);
-    for (int i = 0; i < heght; i++) visited[i].resize(width);
+    visited.resize(height);
+    for (int i = 0; i < height; i++) visited[i].resize(width);
     q.push(std::make_pair(_entries.front()->Position.x, _entries.front()->Position.y));
     while (!q.empty()) {
         std::pair<int, int> now = q.front();
         q.pop();
         visited[now.second][now.first] = true;
         for (int i = 0; i < 4; i++) {
-            if (IsValid(now.first + dx[i], now.second + dy[i], width, heght)) {
+            if (IsValid(now.first + dx[i], now.second + dy[i], width, height)) {
                 int tox = now.first + dx[i], toy = now.second + dy[i];
                 if (visited[toy][tox]) continue;
                 if (_cells[toy][tox].isReachable && !_cells[toy][tox].isTrap) q.push(std::make_pair(now.first + dx[i], now.second + dy[i]));

@@ -35,11 +35,11 @@ public:
     TileMap();
     TileMap(int width, int heigth);
     TileMap(const CellMatrix &cells);
-    bool Load();
+    virtual bool Load();
     void SetCells(const CellMatrix &cells);
     CellMatrix & GetCells();
     virtual bool GenerateMap(int width, int heigth);
-    void GenerateVertices();
+    virtual void GenerateVertices();
 
     const sf::Vector2u TILE_SIZE = sf::Vector2u(32, 32);
 };
