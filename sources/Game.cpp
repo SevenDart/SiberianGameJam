@@ -38,6 +38,7 @@ void Game::Init() {
     player = new Player(1, 1, 1,
                         std::shared_ptr<Weapon>(weapon), sf::Vector2u(2,2));
 
+    player->Update();
     Level::currentLevel->AddCharacter(player);
 }
 

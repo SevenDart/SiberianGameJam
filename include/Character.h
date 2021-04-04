@@ -16,6 +16,7 @@ class Weapon;
 class Character : public sf::Drawable, public sf::Transformable {
 public:
     enum class States{IDLE, WALK, HIT};
+    const int HEALTH_PER_POINT = 13;
 
     virtual void Update();
     virtual void UpdateSprite(float elapsedTime);
@@ -27,8 +28,14 @@ public:
     void GetModificator(Modificator modificator);
 
     const std::shared_ptr<Weapon> &GetWeapon() const;
-
     const sf::Vector2u &GetIndexPosition() const;
+
+    int GetHP() const;
+
+    int GetStrength() const;
+    int GetAgility() const;
+    int GetIntelligence() const;
+
 
     Character(int strength, int agility, int intelligence, std::shared_ptr<Weapon> weapon, sf::Vector2u startPosition);
     virtual ~Character();
@@ -39,8 +46,6 @@ protected:
     int _strength;      //affects on health points
     int _agility;       //affects on a chance to not have damage
     int _intelligence;  //affects on a critical chance
-
-    const int HEALTH_PER_POINT = 13;
 
     int _healthPoints;
     int _gold;

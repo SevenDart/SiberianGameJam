@@ -35,6 +35,8 @@ void HealthBar::draw(sf::RenderTarget &target, sf::RenderStates states) const {
 
 void HealthBar::setMaxHp(int maxHp) {
     _maxHP = maxHp;
+    std::string text = std::to_string(_currentHP) + "/" + std::to_string(_maxHP);
+    HPtext.setString(text);
 }
 
 void HealthBar::UpdatePosition() {

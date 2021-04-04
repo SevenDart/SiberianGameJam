@@ -89,5 +89,21 @@ const std::shared_ptr<Weapon> &Character::GetWeapon() const {
     return _weapon;
 }
 
+int Character::GetStrength() const {
+    return _strength;
+}
+
+int Character::GetAgility() const {
+    return _agility;
+}
+
+int Character::GetIntelligence() const {
+    return _intelligence;
+}
+
+int Character::GetHP() const {
+    return _healthPoints;
+}
+
 
 Character::~Character() = default;

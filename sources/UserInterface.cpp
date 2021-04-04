@@ -12,6 +12,7 @@
 void UserInterface::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     target.draw(*_healthBar, states);
     target.draw(*_attackButton, states);
+    target.draw(*_stats, states);
 }
 
 UserInterface::UserInterface() {
@@ -21,6 +22,7 @@ UserInterface::UserInterface() {
         MarkEnemies();
     };
     _attackButton = new Button("../resources/UI/attack_button.png", _attackFunc, sf::Vector2f(0, 50), sf::Vector2f(50,50));
+    _stats = new Stats();
 }
 
 HealthBar *UserInterface::getHealthBar() const {
@@ -30,6 +32,15 @@ HealthBar *UserInterface::getHealthBar() const {
 void UserInterface::Update() {
     _healthBar->UpdatePosition();
     _attackButton->UpdatePosition();
+    _stats->UpdatePosition();
+}
+
+void UserInterface::UpdateInfo() {
+    _stats->UpdateParameters();
+    int currentHP = Game::currentGame->GetPlayer()->GetHP();
+    int maxHP = Game::currentGame->GetPlayer()->GetStrength() * Game::currentGame->GetPlayer()->HEALTH_PER_POINT;
+    _healthBar->setMaxHp(maxHP);
+    _healthBar->setCurrentHp(currentHP);
 }
 
 void UserInterface::MouseInput() {
@@ -87,6 +98,10 @@ void UserInterface::MarkEnemies() {
                 }
             }
     }
+}
+
+Stats *UserInterface::GetStats() const {
+    return _stats;
 }
 
 
