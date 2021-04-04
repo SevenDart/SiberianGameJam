@@ -30,7 +30,8 @@ void Enemy::Follow() {
     }
     else {
         sf::Vector2u step = FindPath();
-        Move(_indexPosition - step);
+        sf::Vector2u newPos = _indexPosition - step;
+        if (Level::currentLevel->GetCells()[newPos.y][newPos.x].character == nullptr) Move(_indexPosition - step);
     }
 }
 

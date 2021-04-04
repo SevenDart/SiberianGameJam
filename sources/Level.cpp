@@ -55,8 +55,23 @@ void Level::AddCharacter(Character *character) {
 
 bool Level::GenerateEnemies(int width, int heigth, int enemies) {
     // TODO: Generate Enemies;
-    auto *goblin = new Goblin(sf::Vector2u(5,5));
-    AddCharacter(goblin);
+    for (int i = 0; i < enemies; i++) {
+        int threshold = 100;
+        int failnum = 0;
+        while (failnum < threshold) {
+            bool fail = false;
+            int x = rand() % (width - 2) + 1;
+            int y = rand() % (heigth - 3) + 2;
+            fail = _cells[y][x].character != nullptr || _cells[y][x].isTrap || !_cells[y][x].isReachable;
+            if (fail) {
+                failnum++;
+            } else {
+                auto *goblin = new Goblin(sf::Vector2u(x, y));
+                AddCharacter(goblin);
+                break;
+            }
+        }
+    }
     _enemyCount++;
     return false;
 }
@@ -296,18 +311,6 @@ void Level::AddButton(Button *button) {
 
 void Level::ClearButtons() {
     _buttons.clear();
-}
-
-void Level::AddDeadCharacter(std::shared_ptr<Character> character) {
-    _deadCharacters.push_back(character);
-}
-
-std::vector<std::shared_ptr<Character>> &Level::getDeadCharacters() {
-    return _deadCharacters;
-}
-
-int Level::getEnemyCount() const {
-    return _enemyCount;
 }
 
 
