@@ -33,7 +33,7 @@ void Game::Init() {
     sound.setLoop(true);
     sound.play();
 
-    auto *weapon = new Weapon(Weapon::MainParameter::STRENGTH, 15,
+    auto *weapon = new Weapon(Weapon::MainParameter::STRENGTH, 5,
                              std::make_shared<Modificator>(nullptr, 1), 1);
 
     player = new Player(1, 2, 3,
