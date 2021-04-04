@@ -9,6 +9,7 @@
 #include <climits>
 #include "../include/Entry.h"
 #include "../include/Goblin.h"
+#include "../include/Dwarf.h"
 
 Level::Level() : TileMap() {
 }
@@ -54,7 +55,6 @@ void Level::AddCharacter(Character *character) {
 }
 
 bool Level::GenerateEnemies(int width, int heigth, int enemies) {
-    // TODO: Generate Enemies;
     for (int i = 0; i < enemies; i++) {
         int threshold = 100;
         int failnum = 0;
@@ -66,8 +66,18 @@ bool Level::GenerateEnemies(int width, int heigth, int enemies) {
             if (fail) {
                 failnum++;
             } else {
-                auto *goblin = new Goblin(sf::Vector2u(x, y));
-                AddCharacter(goblin);
+                switch (Random(2, 0, 1, 1, 1)) {
+                    case 0: {
+                        auto *goblin = new Goblin(sf::Vector2u(x, y));
+                        AddCharacter(goblin);
+                        break;
+                    }
+                    case 1: {
+                        auto *dwarf = new Dwarf(sf::Vector2u(x, y));
+                        AddCharacter(dwarf);
+                        break;
+                    }
+                }
                 break;
             }
         }
