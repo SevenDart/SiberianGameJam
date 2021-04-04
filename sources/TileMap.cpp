@@ -90,7 +90,7 @@ CellMatrix & TileMap::GetCells() {
 void TileMap::AddElement(int x, int y, const TileMap::Element element) {
     for (int i = 0; i < element.height; i++) {
         for (int j = 0; j < element.width; j++) {
-            _cells[y + element.offsetY + i][x + element.offsetX + j].tileNumbers.push_back(element.basetile + (i * 32) + j);
+            _cells[y + element.offsetY + i][x + element.offsetX + j].tileNumbers.push_back(element.basetile + (i * (int)(m_tileset.getSize().x / _tileSize.x)) + j);
         }
     }
 }

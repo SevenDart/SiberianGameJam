@@ -16,11 +16,17 @@ void Game::InitWindow() {
 
 void Game::Init() {
     InitWindow();
-    map.GenerateLevel(9, 9);
     map.Load();
+    map.GenerateLevel(9, 9);
     map.GenerateVertices();
-
     Level::currentLevel = &map;
+
+    Background::currentBackground = new Background;
+    Background::currentBackground->Load();
+    Background::currentBackground->GenerateMap(100, 100);
+    Background::currentBackground->GenerateVertices();
+    Background::currentBackground->setPosition(-50 * 32, -50 * 32);
+
 
 //    map.AddEntry(new Entry(sf::Vector2u(1, 2), nullptr));
 

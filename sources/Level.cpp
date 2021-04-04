@@ -40,7 +40,7 @@ bool Level::GenerateLevel(int width, int heigth, Level::LevelType type, int trap
                                           minNumberOfDoors + 2, 5,
                                           minNumberOfDoors + 3, 1));
     GenerateEnemies(width, heigth, enemies);
-    GenerateTraps(width, heigth, 10);
+    GenerateTraps(width, heigth, traps);
     return true;
 }
 
