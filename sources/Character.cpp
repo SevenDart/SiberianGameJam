@@ -112,6 +112,7 @@ int Character::GetHP() const {
 }
 
 int Character::UpgradeStrength() {
+    _healthPoints += HEALTH_PER_POINT;
     return _strength++;
 }
 
