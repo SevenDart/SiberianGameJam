@@ -47,7 +47,7 @@ bool Level::GenerateLevel(int width, int heigth, Level::LevelType type, int trap
 
 void Level::AddCharacter(Character *character) {
     sf::Vector2u startPosition = character->GetIndexPosition();
-    GetCells()[startPosition.x][startPosition.y].character = std::shared_ptr<Character>(character);
+    GetCells()[startPosition.y][startPosition.x].character = std::shared_ptr<Character>(character);
     character->setPosition(startPosition.x * TILE_SIZE.x + 4,
                       startPosition.y * TILE_SIZE.y - 4);
     _characters.push_back(std::shared_ptr<Character>(character));
@@ -55,8 +55,23 @@ void Level::AddCharacter(Character *character) {
 
 bool Level::GenerateEnemies(int width, int heigth, int enemies) {
     // TODO: Generate Enemies;
-    auto *goblin = new Goblin(sf::Vector2u(5,5));
-    AddCharacter(goblin);
+    for (int i = 0; i < enemies; i++) {
+        int threshold = 100;
+        int failnum = 0;
+        while (failnum < threshold) {
+            bool fail = false;
+            int x = rand() % (width - 2) + 1;
+            int y = rand() % (heigth - 3) + 2;
+            fail = _cells[y][x].character != nullptr || _cells[y][x].isTrap || !_cells[y][x].isReachable;
+            if (fail) {
+                failnum++;
+            } else {
+                auto *goblin = new Goblin(sf::Vector2u(x, y));
+                AddCharacter(goblin);
+                break;
+            }
+        }
+    }
     return false;
 }
 
