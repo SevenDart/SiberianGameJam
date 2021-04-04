@@ -164,6 +164,8 @@ void Game::CheckRewardsButtons() {
     for (auto button: Reward::currentReward->getButtons()) {
         sf::IntRect buttonRect = button->GetSprite().getTextureRect();
         sf::Vector2f position = button->GetSprite().getPosition();
+        buttonRect.width = 50;
+        buttonRect.height = 50;
         buttonRect.left = position.x;
         buttonRect.top = position.y;
         sf::Vector2f mousePosition = Game::currentGame->GetMainWindow()->mapPixelToCoords(sf::Mouse::getPosition(Game::currentGame->GetMainWindow()[0]));
