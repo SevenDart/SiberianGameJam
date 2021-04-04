@@ -26,11 +26,14 @@ public:
 
     void GetModificator(Modificator modificator);
 
+    const std::shared_ptr<Weapon> &GetWeapon() const;
+
     const sf::Vector2u &GetIndexPosition() const;
 
     Character(int strength, int agility, int intelligence, std::shared_ptr<Weapon> weapon, sf::Vector2u startPosition);
     virtual ~Character();
 protected:
+    virtual void Death();
 
                         //Three main parameters for a character
     int _strength;      //affects on health points

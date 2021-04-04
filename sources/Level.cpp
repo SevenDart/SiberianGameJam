@@ -16,6 +16,7 @@ Level::Level() : TileMap() {
 Level::Level(int width, int heigth, Level::LevelType type, int traps, int enemies) {
     Load();
     GenerateLevel(width, heigth, type, traps, enemies);
+    levelType = type;
 }
 
 Level::Level(std::vector<char> &byteArray) {
@@ -283,5 +284,18 @@ bool Level::CheckReachability() {
 std::vector<std::shared_ptr<Character>> &Level::GetCharacters() {
     return _characters;
 }
+
+std::vector<std::shared_ptr<Button>> Level::GetButtons() {
+    return _buttons;
+}
+
+void Level::AddButton(Button *button) {
+    _buttons.push_back(std::shared_ptr<Button>(button));
+}
+
+void Level::ClearButtons() {
+    _buttons.clear();
+}
+
 
 

@@ -48,6 +48,10 @@ void Game::Render() {
         _mainWindow->draw(*character);
     }
 
+    for (auto &button : Level::currentLevel->GetButtons()) {
+        _mainWindow->draw(*button);
+    }
+
     _mainWindow->display();
 }
 
@@ -57,6 +61,12 @@ void Game::Update() {
 
     for (auto &character: Level::currentLevel->GetCharacters())
         character->UpdateSprite(elapsedTime);
+
+    for (auto &button: Level::currentLevel->GetButtons())
+        button->UpdatePosition();
+
+    if (Level::currentLevel->levelType == Level::LevelType::COMBAT)
+        CheckCombatButtons();
 }
 
 void Game::Run() {
@@ -82,7 +92,7 @@ bool Game::CheckChance(int chance) {
     return (distribution(generator) <= chance);
 }
 
-sf::RenderWindow *Game::getMainWindow() const {
+sf::RenderWindow *Game::GetMainWindow() const {
     return _mainWindow;
 }
 
@@ -97,3 +107,26 @@ void Game::UpdateCharacters() {
     }
 }
 
+void Game::CheckCombatButtons() {
+    for (auto button: Level::currentLevel->GetButtons()) {
+        sf::IntRect buttonRect = button->GetSprite().getTextureRect();
+        sf::Vector2f position = button->GetSprite().getPosition();
+        buttonRect.left = position.x;
+        buttonRect.top = position.y;
+        sf::Vector2f mousePosition = Game::currentGame->GetMainWindow()->mapPixelToCoords(sf::Mouse::getPosition(Game::currentGame->GetMainWindow()[0]));
+//        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+//            sf::Vector2i mousePosition = sf::Mouse::getPosition();
+//            std::cout << position.x << " " << position.y << "\n";
+//            std::cout << buttonRect.width << " " << buttonRect.height << "\n";
+//            std::cout << mousePosition.x << " " << mousePosition.y << "\n";
+//            std::cout.flush();
+//        }
+        if (buttonRect.contains(sf::Vector2i(mousePosition.x, mousePosition.y))) {
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+                sf::Vector2u indexPosition((position.x + 1) / 32, (position.y + 1) / 32);
+                void* pointerToCharacter =(void*)Level::currentLevel->GetCells()[indexPosition.y][indexPosition.x].character.get();
+                button->GetAction()(1, pointerToCharacter);
+            }
+        }
+    }
+}

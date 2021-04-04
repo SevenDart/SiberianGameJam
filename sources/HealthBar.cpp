@@ -38,7 +38,7 @@ void HealthBar::setMaxHp(int maxHp) {
 }
 
 void HealthBar::UpdatePosition() {
-    _position = Game::currentGame->getMainWindow()->mapPixelToCoords(sf::Vector2i(0, 0), Game::currentGame->GetPlayer()->getCamera());
+    _position = Game::currentGame->GetMainWindow()->mapPixelToCoords(sf::Vector2i(0, 0), Game::currentGame->GetPlayer()->getCamera());
     _outerRectangle.setPosition(_position);
     _innerRectangle.setPosition(_position + sf::Vector2f(1, 1));
     HPtext.setPosition(_position + sf::Vector2f(30,0));

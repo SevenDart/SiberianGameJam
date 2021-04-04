@@ -7,6 +7,7 @@
 
 #include "Character.h"
 #include "TileMap.h"
+#include "Button.h"
 #include <vector>
 
 class Entry;
@@ -26,6 +27,7 @@ private:
     bool CheckReachability();
 protected:
 
+    std::vector<std::shared_ptr<Button>> _buttons;
     std::vector<std::shared_ptr<Character>> _characters;
     std::vector<std::shared_ptr<Entry>> _entries;
 
@@ -35,6 +37,7 @@ public:
         REST,
         TRADE
     };
+    LevelType levelType;
 
     ///static link to current level
     inline static Level* currentLevel;
@@ -52,6 +55,11 @@ public:
     std::vector<std::shared_ptr<Entry>> &GetEntries();
     void AddEntry(Entry *entry);
     void AddCharacter(Character* character);
+    void AddButton(Button *button);
+
+    std::vector<std::shared_ptr<Button>> GetButtons();
+
+    void ClearButtons();
 
     std::vector<std::shared_ptr<Character>> &GetCharacters();
 

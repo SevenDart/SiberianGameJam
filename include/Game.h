@@ -27,13 +27,14 @@ private:
 public:
     inline static Game* currentGame;
 
-    sf::RenderWindow *getMainWindow() const;
+    sf::RenderWindow *GetMainWindow() const;
 
     Player *GetPlayer() const;
 
     Game();
     void Run();
     void Update();
+    void CheckCombatButtons();
     void UpdateCharacters();
     static bool CheckChance(int chance);
 };

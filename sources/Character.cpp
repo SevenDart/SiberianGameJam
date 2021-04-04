@@ -35,7 +35,7 @@ void Character::GetDamage(int damage) {
         return;
     _healthPoints -= damage;
     if (damage < 0)
-        delete this;
+        Death();
 }
 
 Character::Character(int strength, int agility, int intelligence, std::shared_ptr<Weapon> weapon,
@@ -77,6 +77,16 @@ const sf::Vector2u &Character::GetIndexPosition() const {
 void Character::SetCurrentState(Character::States newState) {
     if (newState != _currentState) _animations[newState].reset();
     _currentState = newState;
+}
+
+void Character::Death() {
+    for (auto it = Level::currentLevel->GetCharacters().begin(); it != Level::currentLevel->GetCharacters().end(); it++)
+        if ((*it).get() == this) Level::currentLevel->GetCharacters().erase(it);
+    delete this;
+}
+
+const std::shared_ptr<Weapon> &Character::GetWeapon() const {
+    return _weapon;
 }
 
 
