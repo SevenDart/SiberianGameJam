@@ -2,16 +2,16 @@
 // Created by sevendart on 31.03.21.
 //
 
-#include "SFML/System.hpp"
-#include "SFML/Window.hpp"
-#include "SFML/Graphics.hpp"
-#include "Player.h"
-#include <random>
-#include "Level.h"
-
 #ifndef SIBERIANGAMEJAM_GAME_H
 #define SIBERIANGAMEJAM_GAME_H
 
+#include "SFML/System.hpp"
+#include "SFML/Window.hpp"
+#include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
+#include "Player.h"
+#include <random>
+#include "Level.h"
 
 class Game {
 private:
@@ -19,6 +19,8 @@ private:
     sf::Clock dtClock;
     Player* player;
     Level map;
+    sf::Sound sound;
+    sf::SoundBuffer soundBuffer;
 
     void InitWindow();
     void Init();

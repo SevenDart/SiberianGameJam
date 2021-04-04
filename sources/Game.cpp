@@ -27,8 +27,10 @@ void Game::Init() {
     Background::currentBackground->GenerateVertices();
     Background::currentBackground->setPosition(-50 * 32, -50 * 32);
 
-
-//    map.AddEntry(new Entry(sf::Vector2u(1, 2), nullptr));
+    soundBuffer.loadFromFile("../resources/Spy.wav");
+    sound.setBuffer(soundBuffer);
+    sound.setLoop(true);
+    sound.play();
 
     auto *weapon = new Weapon(Weapon::MainParameter::STRENGTH, 1,
                              std::make_shared<Modificator>(nullptr, 1), 1);
